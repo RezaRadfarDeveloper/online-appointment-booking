@@ -1,7 +1,8 @@
 <template>
   <div class="infinite-scroll-container" @scroll="handleScroll">
     <div v-for="item in items" :key="item.id" class="list-item">
-      {{ item.content }}
+      {{ item.fullName }}<br />
+      {{ item.id }}
     </div>
     <div ref="bottomSentinel" class="bottom-sentinel"></div>
     <div v-if="loading" class="loading-indicator">Loading more...</div>
@@ -10,6 +11,7 @@
 </template>
 
 <script setup>
+import { supabase } from '@/supabase'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const items = ref([]) // Array to hold your data
@@ -17,7 +19,7 @@ const page = ref(1)
 const loading = ref(false)
 const noMoreContent = ref(false)
 const bottomSentinel = ref(null) // Reference to the element at the bottom
-
+const range = 6
 let observer = null
 
 // Function to fetch data (simulate an API call)
@@ -26,18 +28,25 @@ const fetchData = async () => {
 
   loading.value = true
   // Simulate API call delay
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  // await new Promise((resolve) => setTimeout(resolve, 1000))
 
   // Replace with your actual API call
-  const newData = Array.from({ length: 10 }, (_, i) => ({
-    id: items.value.length + i,
-    content: `Item ${items.value.length + i + 1}`,
-  }))
+  // const newData = Array.from({ length: 10 }, (_, i) => ({
+  //   id: items.value.length + i,
+  //   content: `Item ${items.value.length + i + 1}`,
+  // }))
+  const { data, error } = await supabase
+    .from('doctors')
+    .select('*')
+    .range((page.value - 1) * range, page.value * range - 1)
 
-  if (newData.length === 0) {
+  if (error) {
+    console.log(error)
+  }
+  if (data.length === 0) {
     noMoreContent.value = true
   } else {
-    items.value.push(...newData)
+    items.value.push(...data)
     page.value++
   }
   loading.value = false
@@ -75,7 +84,7 @@ onUnmounted(() => {
 
 <style scoped>
 .infinite-scroll-container {
-  height: 400px; /* Example fixed height for scrollable area */
+  height: 200px; /* Example fixed height for scrollable area */
   overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;

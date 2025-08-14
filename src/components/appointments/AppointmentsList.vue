@@ -11,39 +11,41 @@
   </div>
 </template>
 <script>
-import AppointmentItem from "./AppointmentItem.vue";
-import data from "../../data.js";
+import AppointmentItem from './AppointmentItem.vue'
+import data from '@/data'
 export default {
   components: {
     AppointmentItem,
   },
-  props: ["doctor"],
-  emits: ["select-appointment"],
+  props: ['doctor', 'selectedWeekDay'],
+  emits: ['select-appointment'],
 
   data() {
     return {
       appointments: data.appointments,
       selectedAppointment: null,
-    };
+    }
   },
   computed: {
     availableAppointments() {
-      return this.appointments;
+      return this.appointments
     },
     isAvailableSession() {
       return (appointmentId) => {
-        return this.doctor.appointments.includes(appointmentId);
-      };
+        return JSON.parse(this.doctor.appointmentsPerWeek)?.[this.selectedWeekDay]?.includes(
+          appointmentId,
+        )
+      }
     },
   },
 
   methods: {
     selectAppointment(appointment) {
-      this.selectedAppointment = appointment;
-      this.$emit("select-appointment", appointment);
+      this.selectedAppointment = appointment
+      this.$emit('select-appointment', appointment)
     },
   },
-};
+}
 </script>
 
 <style scoped>

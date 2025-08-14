@@ -2,15 +2,15 @@
   <Transition name="selected-appointment">
     <div v-if="selectedAppointment" class="selectedAppointment">
       <span>Selected session: {{ selectedAppointment?.title }}</span>
-      <button @click="$router.push('/user-form')">Next</button>
+      <button @click="$router.push('/auth')">Next</button>
     </div>
   </Transition>
 </template>
 
 <script>
 export default {
-  props: ["selectedAppointment"],
-};
+  props: ['selectedAppointment'],
+}
 </script>
 <style scoped>
 .selectedAppointment {

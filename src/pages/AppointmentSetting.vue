@@ -1,57 +1,102 @@
 <template>
   <div class="container">
-    <doctors-list :doctors="doctors" @select-doctor="setDoctor"></doctors-list>
+    <doctors-list
+      :isLoading="isLoading"
+      :doctors="availableDoctors"
+      @select-doctor="setDoctor"
+    ></doctors-list>
+
     <div class="content">
       <doctor-details
         :doctor="selectedDoctor"
         @select-appointment="selectAppointment"
       ></doctor-details>
 
-      <selected-appointment
-        :selectedAppointment="selectedAppointment"
-      ></selected-appointment>
+      <selected-appointment :selectedAppointment="selectedAppointment"></selected-appointment>
     </div>
   </div>
 </template>
 
 <script>
-import SelectedAppointment from "@/components/appointments/SelectedAppointment.vue";
-import DoctorDetails from "@/components/doctors/DoctorDetails.vue";
-import DoctorsList from "@/components/doctors/DoctorsList.vue";
-import data from "../data.js";
+import SelectedAppointment from '@/components/appointments/SelectedAppointment.vue'
+import DoctorDetails from '@/components/doctors/DoctorDetails.vue'
+import DoctorsList from '@/components/doctors/DoctorsList.vue'
+
+import { supabase } from '@/supabase.js'
+import { onMounted, ref } from 'vue'
 
 export default {
-  name: "AppointmentSetting",
+  name: 'AppointmentSetting',
   components: {
     DoctorDetails,
     DoctorsList,
     SelectedAppointment,
   },
-  data() {
+  setup() {
+    const availableDoctors = ref([])
+    const selectedDoctor = ref(null)
+    const selectedAppointment = ref(null)
+    const isLoading = ref(false)
+
+    const setDoctor = (doctorId) => {
+      selectedAppointment.value = null
+      selectedDoctor.value = availableDoctors.value.find((doctor) => doctor.id === doctorId)
+    }
+
+    const selectAppointment = (appointment) => {
+      selectedAppointment.value = appointment
+    }
+    const fetchData = async () => {
+      isLoading.value = true
+      const { data, error } = await supabase.from('doctors').select('*')
+      isLoading.value = false
+      if (error) {
+        console.error('Error fetching data:', error)
+      } else {
+        console.log(data)
+
+        availableDoctors.value = data
+      }
+    }
+
+    onMounted(() => fetchData())
+
     return {
-      availableDoctors: data.doctors,
-      selectedDoctor: null,
-      selectedAppointment: null,
-    };
+      setDoctor,
+      availableDoctors,
+      selectAppointment,
+      selectedAppointment,
+      selectedDoctor,
+      fetchData,
+      isLoading,
+    }
   },
 
-  computed: {
-    doctors() {
-      return this.availableDoctors;
-    },
-  },
-  methods: {
-    setDoctor(doctorId) {
-      this.selectedAppointment = null;
-      this.selectedDoctor = this.availableDoctors.find(
-        (doctor) => doctor.id === doctorId
-      );
-    },
-    selectAppointment(appointment) {
-      this.selectedAppointment = appointment;
-    },
-  },
-};
+  // methods: {
+  //   // setDoctor(doctorId) {
+  //   //   this.selectedAppointment = null
+  //   //   this.selectedDoctor = this.availableDoctors.find((doctor) => doctor.id === doctorId)
+  //   // },
+  //   // selectAppointment(appointment) {
+  //   //   this.selectedAppointment = appointment
+  //   // },
+  //   // async fetchData() {
+  //   //   this.isLoading = true
+  //   //   const { data, error } = await supabase.from('doctors').select('*')
+  //   //   this.isLoading = false
+  //   //   if (error) {
+  //   //     console.error('Error fetching data:', error)
+  //   //   } else {
+  //   //     console.log(data)
+  //   //     this.availableDoctors = data
+  //   //   }
+  //   // },
+  // },
+
+  // mounted() {
+  //   this.fetchData()
+  // },
+}
 </script>
 
 <style scoped>
