@@ -25,9 +25,10 @@ export default {
 
 <style>
 #app {
-  display: flex;
-  justify-content: space-around;
-  padding: 1.5rem 2.5rem;
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
 }
 
 .fade-enter-from,
@@ -36,6 +37,6 @@ export default {
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.15s;
+  transition: opacity 0.12s ease;
 }
 </style>

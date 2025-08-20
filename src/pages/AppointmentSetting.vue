@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <doctors-list
-      :isLoading="isLoading"
-      :doctors="availableDoctors"
-      @select-doctor="setDoctor"
-    ></doctors-list>
+    <doctors-list @select-doctor="setDoctor"></doctors-list>
 
     <div class="content">
       <doctor-details
@@ -35,8 +31,8 @@ export default {
   setup() {
     const availableDoctors = ref([])
     const selectedDoctor = ref(null)
-    const selectedAppointment = ref(null)
     const isLoading = ref(false)
+    const selectedAppointment = ref(null)
 
     const setDoctor = (doctorId) => {
       selectedAppointment.value = null
@@ -53,7 +49,7 @@ export default {
       if (error) {
         console.error('Error fetching data:', error)
       } else {
-        console.log(data)
+        // console.log(data)
 
         availableDoctors.value = data
       }
@@ -102,5 +98,11 @@ export default {
 <style scoped>
 .container {
   display: flex;
+  justify-content: space-around;
+  padding-top: 1rem;
+}
+.content {
+  padding-top: 4rem;
+  width: 45%;
 }
 </style>

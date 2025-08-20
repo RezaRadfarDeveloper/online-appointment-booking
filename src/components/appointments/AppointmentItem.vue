@@ -11,18 +11,18 @@
 
 <script>
 export default {
-  props: ["appointment", "isAvailable", "selected"],
-  emits: ["select-appointment"],
+  props: ['appointment', 'isAvailable', 'selected'],
+  emits: ['select-appointment'],
   data() {
-    return {};
+    return {}
   },
 
   methods: {
     selectAppointment() {
-      this.$emit("select-appointment", this.appointment);
+      this.$emit('select-appointment', this.appointment)
     },
   },
-};
+}
 </script>
 
 <style scoped>
@@ -39,7 +39,7 @@ export default {
 }
 
 .active {
-  background-color: #5aebbb;
+  background-color: rgb(4, 131, 140);
   cursor: pointer;
 }
 

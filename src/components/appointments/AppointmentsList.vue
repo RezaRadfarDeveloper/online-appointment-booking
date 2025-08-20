@@ -1,6 +1,8 @@
 <template>
   <div class="appointmentsList">
+    <div class="no-data" v-if="isLoading || initialLoading">Loading ...</div>
     <appointment-item
+      v-else
       v-for="appointment in availableAppointments"
       :appointment="appointment"
       :key="appointment.id"
@@ -17,13 +19,15 @@ export default {
   components: {
     AppointmentItem,
   },
-  props: ['doctor', 'selectedWeekDay'],
+  props: ['doctor', 'selectedWeekDay', 'isLoading'],
   emits: ['select-appointment'],
 
   data() {
     return {
       appointments: data.appointments,
       selectedAppointment: null,
+      timeoutId: 0,
+      initialLoading: false,
     }
   },
   computed: {
@@ -45,6 +49,16 @@ export default {
       this.$emit('select-appointment', appointment)
     },
   },
+  mounted() {
+    this.initialLoading = true
+    clearTimeout(this.timeoutId)
+    console.log(this.timeoutId)
+
+    this.timeoutId = setTimeout(() => {
+      console.log('mounted appointment list')
+      this.initialLoading = false
+    }, 500)
+  },
 }
 </script>
 
@@ -53,6 +67,7 @@ export default {
   padding: 1rem;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   row-gap: 1rem;
   column-gap: 1rem;
 }

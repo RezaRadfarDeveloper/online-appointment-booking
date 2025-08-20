@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="auth-tab">
     <div class="tabs">
-      <button @click="activeTab = 'signIn'" :class="{ active: activeTab === 'signIn' }">
+      <button class="tab" @click="activeTab = 'signIn'" :class="{ active: activeTab === 'signIn' }">
         Sign In
       </button>
-      <button @click="activeTab = 'signUp'" :class="{ active: activeTab === 'signUp' }">
+      <button class="tab" @click="activeTab = 'signUp'" :class="{ active: activeTab === 'signUp' }">
         Sign Up
       </button>
     </div>
@@ -42,25 +42,46 @@ const handleSignedUp = () => {
 </script>
 
 <style scoped>
+.auth-tab {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .tabs {
   display: flex;
-  margin-bottom: 20px;
 }
 
 .tabs button {
+  width: 15rem;
+  height: 3.5rem;
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
   padding: 10px 15px;
-  border: 1px solid #ccc;
-  background-color: #f0f0f0;
+  color: rgb(4, 131, 140);
+  background-color: white;
+  border: 1px solid rgb(4, 131, 140);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   cursor: pointer;
 }
 
 .tabs button.active {
-  background-color: #e0e0e0;
+  background-color: rgb(4, 131, 140);
+  /*  #84c9ff; */
   border-bottom-color: transparent;
+  color: white;
 }
 
 .form-container {
   border: 1px solid #ccc;
+  width: 100%;
+  height: 24rem;
   padding: 20px;
 }
 </style>

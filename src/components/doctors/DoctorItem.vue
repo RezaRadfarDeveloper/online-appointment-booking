@@ -9,7 +9,7 @@
         <p>{{ doctor.expertise }}</p>
       </div>
     </div>
-    <div class="doctor__item--actions">
+    <div class="doctor__item--actions" :style="{ display: !activeAction ? 'none' : '' }">
       <a href="">Profile</a>
       <a href="">Book</a>
     </div>
@@ -19,7 +19,7 @@
 <script>
 export default {
   name: 'DoctorItem',
-  props: ['doctor'],
+  props: ['doctor', 'activeAction'],
   emits: ['select-doctor'],
   methods: {
     selectDoctor() {
@@ -33,6 +33,7 @@ export default {
 .doctorItem {
   cursor: pointer;
   width: 25rem;
+  align-self: center;
   padding: 0.75rem 1.5rem;
   background-color: #f9f9f9;
 }
