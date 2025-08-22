@@ -3,24 +3,24 @@
     class="appointmentItem"
     :class="isAvailable ? 'active' : ''"
     :disabled="!isAvailable"
-    @click="selectAppointment"
+    @click="selectAppointment(appointment)"
   >
     {{ appointment.title }}
   </button>
 </template>
 
 <script>
-export default {
-  props: ['appointment', 'isAvailable', 'selected'],
-  emits: ['select-appointment'],
-  data() {
-    return {}
-  },
+import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 
-  methods: {
-    selectAppointment() {
-      this.$emit('select-appointment', this.appointment)
-    },
+export default {
+  props: ['appointment', 'isAvailable'],
+
+  setup() {
+    const { selectAppointment } = useAppointmentDetails()
+
+    return {
+      selectAppointment,
+    }
   },
 }
 </script>

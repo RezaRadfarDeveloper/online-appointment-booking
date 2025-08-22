@@ -1,15 +1,14 @@
 <template>
-  <h2 v-if="!doctor" class="doctorDetails">No DoctorSelected</h2>
+  <h2 v-if="!selectedDoctor" class="doctorDetails">No DoctorSelected</h2>
   <div v-else class="doctorDetails">
-    <doctor-item :doctor="doctor" :activeAction="false"></doctor-item>
+    <doctor-item :doctor="selectedDoctor" :activeAction="false"></doctor-item>
     <date-picker
       @toggle-loader="setLoading"
       @set-weekday-date="setWeekDayDate"
-      :doctorId="String(doctor.id)"
+      :doctorId="String(selectedDoctor.id)"
     ></date-picker>
     <appointments-list
-      @select-appointment="$emit('select-appointment', $event)"
-      :doctor="doctor"
+      :doctor="selectedDoctor"
       :isLoading="isLoadingAppointment"
       :selected-week-day="selectedWeekDay"
     ></appointments-list>
@@ -21,6 +20,7 @@ import { ref } from 'vue'
 import AppointmentsList from '../appointments/AppointmentsList.vue'
 import DatePicker from '../DatePicker.vue'
 import DoctorItem from './DoctorItem.vue'
+import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 
 export default {
   props: ['doctor'],
@@ -31,6 +31,7 @@ export default {
   },
 
   setup() {
+    const { selectedDoctor } = useAppointmentDetails()
     const selectedWeekDay = ref('Mon')
     const isLoadingAppointment = ref(false)
     const timeoutId = ref(0)
@@ -40,7 +41,6 @@ export default {
     }
 
     const setLoading = () => {
-      console.log('toggle triggered')
       isLoadingAppointment.value = !isLoadingAppointment.value
       clearTimeout(timeoutId)
       timeoutId.value = setTimeout(() => {
@@ -53,6 +53,7 @@ export default {
       selectedWeekDay,
       isLoadingAppointment,
       setLoading,
+      selectedDoctor,
     }
   },
 }

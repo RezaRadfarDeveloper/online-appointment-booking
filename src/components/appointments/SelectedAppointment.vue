@@ -8,8 +8,13 @@
 </template>
 
 <script>
+import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+
 export default {
-  props: ['selectedAppointment'],
+  setup() {
+    const { selectedAppointment } = useAppointmentDetails()
+    return { selectedAppointment }
+  },
 }
 </script>
 <style scoped>

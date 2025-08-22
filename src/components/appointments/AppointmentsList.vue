@@ -1,26 +1,25 @@
 <template>
   <div class="appointmentsList">
-    <div class="no-data" v-if="isLoading || initialLoading">Loading ...</div>
+    <loader-icon v-if="isLoading || initialLoading">Loading ...</loader-icon>
     <appointment-item
       v-else
       v-for="appointment in availableAppointments"
       :appointment="appointment"
       :key="appointment.id"
       :isAvailable="isAvailableSession(appointment.id)"
-      :selected="selectedAppointment"
-      @select-appointment="selectAppointment"
     ></appointment-item>
   </div>
 </template>
 <script>
+import LoaderIcon from '@/ui/LoaderIcon.vue'
 import AppointmentItem from './AppointmentItem.vue'
 import data from '@/data'
 export default {
   components: {
     AppointmentItem,
+    LoaderIcon,
   },
   props: ['doctor', 'selectedWeekDay', 'isLoading'],
-  emits: ['select-appointment'],
 
   data() {
     return {
@@ -46,16 +45,13 @@ export default {
   methods: {
     selectAppointment(appointment) {
       this.selectedAppointment = appointment
-      this.$emit('select-appointment', appointment)
     },
   },
   mounted() {
     this.initialLoading = true
     clearTimeout(this.timeoutId)
-    console.log(this.timeoutId)
 
     this.timeoutId = setTimeout(() => {
-      console.log('mounted appointment list')
       this.initialLoading = false
     }, 500)
   },

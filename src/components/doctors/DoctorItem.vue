@@ -1,5 +1,5 @@
 <template>
-  <div class="doctorItem" @click="selectDoctor">
+  <div class="doctorItem" @click="setDoctor(doctor.id)">
     <div class="doctorItem__item--details">
       <div class="doctorItem__item--details-img">
         <img src="/src/assets/img/doctor-image.png" alt="" srcset="" />
@@ -17,14 +17,21 @@
 </template>
 
 <script>
+import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+
 export default {
   name: 'DoctorItem',
-  props: ['doctor', 'activeAction'],
-  emits: ['select-doctor'],
-  methods: {
-    selectDoctor() {
-      this.$emit('select-doctor', this.doctor.id)
-    },
+  props: {
+    doctor: Object,
+    activeAction: Boolean,
+  },
+
+  setup() {
+    const { setDoctor } = useAppointmentDetails()
+
+    return {
+      setDoctor,
+    }
   },
 }
 </script>

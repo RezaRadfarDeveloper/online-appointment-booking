@@ -3,14 +3,15 @@
     <h2>doctors list</h2>
     <div class="infinite-scroll-container" @scroll="handleScroll">
       <doctor-item
-        v-for="doctor in availableDoctors"
+        v-for="doctor in localAvailableDoctors"
         :key="doctor.id"
         :doctor="doctor"
         @select-doctor="$emit('select-doctor', $event)"
-        active-action="true"
+        :active-action="true"
       ></doctor-item>
       <div ref="bottomSentinel" class="bottom-sentinel"></div>
-      <div v-if="loading" class="loading-indicator">Loading more...</div>
+      <loader-icon v-if="loading"></loader-icon>
+      <!-- <div v-if="loading" class="loading-indicator">Loading more...</div> -->
       <div v-if="noMoreContent" class="no-more-content">No more content to load.</div>
     </div>
   </div>
@@ -19,67 +20,57 @@
 <script>
 import { onMounted, ref } from 'vue'
 import DoctorItem from './DoctorItem.vue'
-import { supabase } from '@/supabase'
+import LoaderIcon from '@/ui/LoaderIcon.vue'
+// import { supabase } from '@/supabase'
 import { onUnmounted } from 'vue'
+import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 
 export default {
-  components: { DoctorItem },
-  props: ['doctors'],
+  components: { DoctorItem, LoaderIcon },
 
   setup() {
-    const availableDoctors = ref([])
-    const page = ref(1)
-    const noMoreContent = ref(false)
-    const bottomSentinel = ref(null) // Reference to the element at the bottom
-    const range = 4
+    const { noMoreContent, fetchDoctors, bottomSentinel, loading, localAvailableDoctors } =
+      useAppointmentDetails()
+    // const local = ref([])
+    // const page = ref(1)
+    // const noMoreContent = ref(false)
+    // const bottomSentinel = ref(null) // Reference to the element at the bottom
+    // const range = 4
+    const isLoading = ref(false)
+    // const loading = ref(false)
     let observer = null
-    const loading = ref(false)
-    // const isLoading = ref(false)
 
-    // const fetchData = async () => {
-    //   isLoading.value = true
-    //   const { data, error } = await supabase.from('doctors').select('*')
-    //   isLoading.value = false
+    // const fetchDoctors = async () => {
+    //   if (loading.value || noMoreContent.value) return
+
+    //   loading.value = true
+
+    //   const { data, error } = await supabase
+    //     .from('doctors')
+    //     .select('*')
+    //     .range((page.value - 1) * range, page.value * range - 1)
+
     //   if (error) {
-    //     console.error('Error fetching data:', error)
-    //   } else {
-    //     console.log(data)
-
-    //     availableDoctors.value = data
+    //     console.log(error)
     //   }
+    //   if (data.length === 0) {
+    //     noMoreContent.value = true
+    //   } else {
+    //     availableDoctors.value.push(...data)
+    //     page.value++
+    //   }
+    //   loading.value = false
     // }
-
-    const fetchData2 = async () => {
-      if (loading.value || noMoreContent.value) return
-
-      loading.value = true
-
-      const { data, error } = await supabase
-        .from('doctors')
-        .select('*')
-        .range((page.value - 1) * range, page.value * range - 1)
-
-      if (error) {
-        console.log(error)
-      }
-      if (data.length === 0) {
-        noMoreContent.value = true
-      } else {
-        availableDoctors.value.push(...data)
-        page.value++
-      }
-      loading.value = false
-    }
 
     const handleIntersection = (entries) => {
       const [entry] = entries
       if (entry.isIntersecting && !loading.value && !noMoreContent.value) {
-        fetchData2()
+        fetchDoctors()
       }
     }
 
     onMounted(() => {
-      fetchData2()
+      fetchDoctors()
 
       observer = new IntersectionObserver(handleIntersection, {
         root: null, // observe relative to the viewport
@@ -98,7 +89,7 @@ export default {
       }
     })
 
-    return { loading, availableDoctors, noMoreContent, bottomSentinel }
+    return { loading, localAvailableDoctors, noMoreContent, bottomSentinel, isLoading }
   },
 }
 </script>
@@ -127,6 +118,7 @@ export default {
 .infinite-scroll-container {
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 4px;
   height: 600px; /* Example fixed height for scrollable area */
   overflow-y: auto;
@@ -143,6 +135,8 @@ h2 {
 .loading-indicator,
 .no-more-content {
   text-align: center;
+  width: 25rem;
+  height: 100%;
   padding: 10px;
   color: #888;
 }
