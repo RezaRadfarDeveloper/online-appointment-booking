@@ -79,9 +79,9 @@ const handleSignedUp = () => {
 }
 
 .form-container {
-  border: 1px solid #ccc;
   width: 100%;
   height: 24rem;
-  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 0 0 10px 10px;
 }
 </style>
