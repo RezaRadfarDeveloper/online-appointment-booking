@@ -34,49 +34,43 @@
           @blur="validateField('password')"
         />
         <label>password</label>
-        <span class="error" v-if="errors.password && !true">{{ errors.password }}</span>
+        <span class="error" v-if="errors.password && !isUsernameValid">{{ errors.password }}</span>
       </div>
-      <div class="user-box">
-        <input
-          type="number"
-          id="mobile"
-          required=""
-          v-model="form.mobile.value"
-          @blur="validateField('mobile')"
-        />
-        <label>mobile</label>
-        <span class="error" v-if="errors.mobile && !isMobileValid">{{ errors.mobile }}</span>
-      </div>
-      <div class="user-box">
-        <button :disabled="isLoading" type="submit" :class="isLoading ? 'inActive' : ''">
+      <div class="user-box btn-action">
+        <ButtonAction :isLoading="isLoading">
           {{ isLoading ? 'Registering...' : 'Sign up' }}
-        </button>
+        </ButtonAction>
+        <p v-if="error" class="error">{{ error }}</p>
       </div>
-      <router-link to="/">main page</router-link>
     </form>
   </div>
+  <router-link to="/">main page</router-link>
 </template>
 
 <script>
 import { useAuth } from '@/hooks/useAuth'
+import ButtonAction from '@/ui/ButtonAction.vue'
 import { ref, computed } from 'vue'
 // import { useRouter } from 'vue-router'
 export default {
+  components: {
+    ButtonAction,
+  },
   setup() {
-    const { isLoading, isLoggedIn, user, signUp } = useAuth()
+    const { isLoading, isLoggedIn, error, user, signUp } = useAuth()
     // const router = useRouter()
 
     const form = {
       username: ref(''),
       email: ref(''),
-      mobile: ref(''),
+      // mobile: ref(''),
       password: ref(''),
       // Add more form fields as needed
     }
     const errors = ref({})
 
     const isUsernameValid = computed(() => form.username.value.trim() !== '')
-    const isMobileValid = computed(() => form.mobile.value !== '')
+    // const isMobileValid = computed(() => form.mobile.value !== '')
     const isEmailValid = computed(() => form.email.value.includes('@'))
     const isPasswordValid = computed(() => form.password.value.trim(''))
 
@@ -87,9 +81,9 @@ export default {
       if (fieldName === 'email' && !isEmailValid.value) {
         errors.value.email = 'Invalid email address.'
       }
-      if (fieldName === 'mobile' && !isMobileValid.value) {
-        errors.value.mobile = 'Mobile is required.'
-      }
+      // if (fieldName === 'mobile' && !isMobileValid.value) {
+      //   errors.value.mobile = 'Mobile is required.'
+      // }
       if (fieldName === 'password' && !isPasswordValid.value) {
         errors.value.password = 'password is required.'
       }
@@ -100,7 +94,7 @@ export default {
       errors.value = {}
       validateField('username')
       validateField('email')
-      validateField('mobile')
+      // validateField('mobile')
       validateField('password')
 
       // Add more validation checks for other form fields as needed
@@ -116,8 +110,9 @@ export default {
     return {
       form,
       isUsernameValid,
-      isMobileValid,
+      // isMobileValid,
       isEmailValid,
+      error,
       errors,
       submitForm,
       validateField,

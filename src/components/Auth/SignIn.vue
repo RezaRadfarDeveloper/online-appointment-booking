@@ -10,10 +10,13 @@
         <input type="password" name="" v-model="password" required="" />
         <label>Password</label>
       </div>
-      <div>
-        <button :disabled="isLoading" type="submit" :class="isLoading ? 'inActive' : ''">
+      <div class="user-box btn-action">
+        <ButtonAction :isLoading="isLoading">
           {{ isLoading ? 'Logging in...' : 'Login' }}
-        </button>
+        </ButtonAction>
+        <!-- <button :disabled="isLoading" type="submit" :class="isLoading ? 'inActive' : ''">
+          {{ isLoading ? 'Logging in...' : 'Login' }}
+        </button> -->
         <p v-if="error" class="error">{{ error }}</p>
       </div>
     </form>
@@ -21,9 +24,13 @@
 </template>
 <script>
 import { useAuth } from '@/hooks/useAuth'
+import ButtonAction from '@/ui/ButtonAction.vue'
 import { ref } from 'vue'
 
 export default {
+  components: {
+    ButtonAction,
+  },
   setup() {
     const { login, error, isLoading, isLoggedIn } = useAuth()
     const email = ref('')
@@ -47,7 +54,7 @@ export default {
 <style>
 .login-box {
   width: 100%;
-  height: 24rem;
+  min-height: 24rem;
   padding: 40px;
   background: white;
   box-sizing: border-box;
@@ -110,7 +117,8 @@ export default {
   letter-spacing: 4px;
 }
 
-.inActive {
-  cursor: not-allowed;
+.btn-action {
+  text-align: center;
+  margin-top: 1rem;
 }
 </style>
