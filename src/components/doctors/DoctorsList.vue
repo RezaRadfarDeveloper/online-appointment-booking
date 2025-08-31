@@ -31,36 +31,9 @@ export default {
   setup() {
     const { noMoreContent, fetchDoctors, bottomSentinel, loading, localAvailableDoctors } =
       useAppointmentDetails()
-    // const local = ref([])
-    // const page = ref(1)
-    // const noMoreContent = ref(false)
-    // const bottomSentinel = ref(null) // Reference to the element at the bottom
-    // const range = 4
+
     const isLoading = ref(false)
-    // const loading = ref(false)
     let observer = null
-
-    // const fetchDoctors = async () => {
-    //   if (loading.value || noMoreContent.value) return
-
-    //   loading.value = true
-
-    //   const { data, error } = await supabase
-    //     .from('doctors')
-    //     .select('*')
-    //     .range((page.value - 1) * range, page.value * range - 1)
-
-    //   if (error) {
-    //     console.log(error)
-    //   }
-    //   if (data.length === 0) {
-    //     noMoreContent.value = true
-    //   } else {
-    //     availableDoctors.value.push(...data)
-    //     page.value++
-    //   }
-    //   loading.value = false
-    // }
 
     const handleIntersection = (entries) => {
       const [entry] = entries

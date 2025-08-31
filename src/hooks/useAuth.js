@@ -6,10 +6,10 @@ import { useRouter } from 'vue-router' // If using Vue Router
 const isLoggedIn = ref(false)
 const user = ref(null)
 const isLoading = ref(false)
-const error = ref(null)
 
 export function useAuth() {
   const router = useRouter() // Initialize router if needed
+  const error = ref(null)
 
   const login = async ({ email, password }) => {
     isLoading.value = true
@@ -46,6 +46,7 @@ export function useAuth() {
       if (error) {
         throw new Error(error.message)
       }
+      isLoggedIn.value = true
     } catch (err) {
       error.value = err.message
     } finally {

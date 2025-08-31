@@ -14,36 +14,42 @@
         <ButtonAction :isLoading="isLoading">
           {{ isLoading ? 'Logging in...' : 'Login' }}
         </ButtonAction>
-        <!-- <button :disabled="isLoading" type="submit" :class="isLoading ? 'inActive' : ''">
-          {{ isLoading ? 'Logging in...' : 'Login' }}
-        </button> -->
-        <p v-if="error" class="error">{{ error }}</p>
+        <ToastAlert :message="error" />
       </div>
     </form>
+    <router-link class="router-link" to="/">Back to doctors' list</router-link>
   </div>
 </template>
 <script>
 import { useAuth } from '@/hooks/useAuth'
 import ButtonAction from '@/ui/ButtonAction.vue'
+import ToastAlert from '@/components/ToastAlert.vue'
+
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   components: {
     ButtonAction,
+    ToastAlert,
   },
   setup() {
     const { login, error, isLoading, isLoggedIn } = useAuth()
+    const router = useRouter()
+
     const email = ref('')
     const password = ref('')
 
-    const AuthLogin = () => {
-      login({ email: email.value, password: password.value })
+    const AuthLogin = async () => {
+      await login({ email: email.value, password: password.value })
+      router.push('/confirmation')
     }
 
     return {
       AuthLogin,
       email,
       password,
+      router,
       isLoading,
       error,
       isLoggedIn,
@@ -53,6 +59,8 @@ export default {
 </script>
 <style>
 .login-box {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 24rem;
   padding: 40px;
@@ -119,6 +127,10 @@ export default {
 
 .btn-action {
   text-align: center;
+  margin-top: 1rem;
+}
+.router-link {
+  align-self: center;
   margin-top: 1rem;
 }
 </style>

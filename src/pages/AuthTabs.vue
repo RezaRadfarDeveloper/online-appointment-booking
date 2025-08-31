@@ -8,7 +8,6 @@
         Sign Up
       </button>
     </div>
-
     <div class="form-container">
       <transition name="fade" mode="out-in">
         <div v-if="activeTab === 'signIn'">
@@ -27,6 +26,7 @@ import { ref } from 'vue'
 import SignInForm from '@/components/Auth/SignIn.vue'
 import SignUpForm from '@/components/Auth/SignUp.vue'
 
+defineEmits(['signedUp'])
 const activeTab = ref('signIn')
 
 const handleSignedIn = () => {

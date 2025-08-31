@@ -13,14 +13,11 @@ export function useAppointmentDetails() {
   const bottomSentinel = ref(null) // Reference to the element at the bottom
 
   const setDoctor = (doctorId) => {
-    console.log(doctorId)
     selectedAppointment.value = null
     selectedDoctor.value = localAvailableDoctors.value.find((doctor) => doctor.id === doctorId)
   }
 
   const selectAppointment = (appointment) => {
-    console.log(appointment)
-
     selectedAppointment.value = appointment
   }
 
@@ -40,12 +37,8 @@ export function useAppointmentDetails() {
     if (data.length === 0) {
       noMoreContent.value = true
     } else {
-      console.log(page.value)
-
       localAvailableDoctors.value.push(...data)
       page.value++
-
-      console.log(localAvailableDoctors.value)
     }
     loading.value = false
   }
