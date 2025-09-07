@@ -4,6 +4,8 @@ import { ref } from 'vue'
 const localAvailableDoctors = ref([])
 const selectedDoctor = ref(null)
 const selectedAppointment = ref(null)
+const formattedDate = ref(null)
+const dayOfWeek = ref('Mon')
 const page = ref(1)
 const range = 4
 const loading = ref(false)
@@ -19,6 +21,14 @@ export function useAppointmentDetails() {
 
   const selectAppointment = (appointment) => {
     selectedAppointment.value = appointment
+  }
+
+  const setFormattedDate = (date) => {
+    formattedDate.value = date
+  }
+
+  const setWeekDay = (day) => {
+    dayOfWeek.value = day
   }
 
   const fetchDoctors = async () => {
@@ -45,13 +55,18 @@ export function useAppointmentDetails() {
 
   return {
     localAvailableDoctors,
+    formattedDate,
+    dayOfWeek,
+    setWeekDay,
     setDoctor,
     selectAppointment,
+    setFormattedDate,
     selectedDoctor,
     selectedAppointment,
     noMoreContent,
     fetchDoctors,
     bottomSentinel,
+
     loading,
   }
 }

@@ -2,18 +2,28 @@
   <div class="confirm-details">
     <h2>Appointment confirmation</h2>
     <section>
-      <span>Doctor details:Marry chandler, GP</span>
-      <span>Appointment Info: Thursday, 23 Sep 2025, 9:00 to 9:30</span>
-      <span>Patients detail: Reza Radfar</span>
+      <span>Doctor details:{{ selectedDoctor.fullName }}, {{ selectedDoctor.expertise }}</span>
+      <span
+        >Appointment Info:{{ dayOfWeek }}, {{ formattedDate }},{{
+          selectedAppointment?.title
+        }}</span
+      >
+      <span>Patients detail: {{ user.username }}</span>
     </section>
     <div class="btn-action">
-      <ButtonAction>Confirm</ButtonAction>
+      <ButtonAction @click="confirmAppointment" :is-loading="isLoading">
+        {{ isLoading ? 'Booking...' : 'Confirm' }}
+      </ButtonAction>
     </div>
     <router-link class="router-link" to="/">Not sure, Back to doctors list</router-link>
   </div>
 </template>
 
 <script>
+import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+import { useAuth } from '@/hooks/useAuth'
+import { useBooking } from '@/hooks/useBooking'
+
 import ButtonAction from '@/ui/ButtonAction.vue'
 import { useRouter } from 'vue-router'
 
@@ -24,8 +34,28 @@ export default {
   setup() {
     const router = useRouter()
 
+    const { selectedDoctor, selectedAppointment, formattedDate, dayOfWeek } =
+      useAppointmentDetails()
+
+    const { bookAppointment, isLoading } = useBooking()
+
+    const { user } = useAuth()
+
+    const confirmAppointment = async () => {
+      console.log('confirmed appointment booking')
+      await bookAppointment()
+      router.push('/thank-you')
+    }
+
     return {
       router,
+      formattedDate,
+      confirmAppointment,
+      dayOfWeek,
+      user,
+      selectedDoctor,
+      selectedAppointment,
+      isLoading,
     }
   },
 }

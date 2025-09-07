@@ -14,47 +14,94 @@
 import LoaderIcon from '@/ui/LoaderIcon.vue'
 import AppointmentItem from './AppointmentItem.vue'
 import data from '@/data'
+import { computed, onMounted, ref } from 'vue'
+import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 export default {
   components: {
     AppointmentItem,
     LoaderIcon,
   },
-  props: ['doctor', 'selectedWeekDay', 'isLoading'],
+  props: ['doctor', 'isLoading'],
 
-  data() {
-    return {
-      appointments: data.appointments,
-      selectedAppointment: null,
-      timeoutId: 0,
-      initialLoading: false,
-    }
-  },
-  computed: {
-    availableAppointments() {
-      return this.appointments
-    },
-    isAvailableSession() {
+  setup(props) {
+    const { dayOfWeek } = useAppointmentDetails()
+    const appointments = ref(data.appointments)
+    const selectedAppointment = ref(null)
+    const timeoutId = ref(0)
+    const initialLoading = ref(false)
+
+    const availableAppointments = computed(() => {
+      return appointments.value
+    })
+
+    // const isAvailableSession = computed(
+    //   () => (appointmentId) =>
+    //     JSON.parse(props.doctor.appointmentsPerWeek)?.[props.selectedWeekDay]?.includes(
+    //       appointmentId,
+    //     ),
+    // )
+    const isAvailableSession = computed(() => {
       return (appointmentId) => {
-        return JSON.parse(this.doctor.appointmentsPerWeek)?.[this.selectedWeekDay]?.includes(
+        return JSON.parse(props.doctor.appointmentsPerWeek)?.[dayOfWeek.value || 'Mon']?.includes(
           appointmentId,
         )
       }
-    },
-  },
+    })
 
-  methods: {
-    selectAppointment(appointment) {
-      this.selectedAppointment = appointment
-    },
-  },
-  mounted() {
-    this.initialLoading = true
-    clearTimeout(this.timeoutId)
+    const selectAppointment = (appointment) => {
+      selectedAppointment.value = appointment
+    }
 
-    this.timeoutId = setTimeout(() => {
-      this.initialLoading = false
-    }, 500)
+    onMounted(() => {
+      initialLoading.value = true
+      clearTimeout(timeoutId.value)
+
+      timeoutId.value = setTimeout(() => {
+        initialLoading.value = false
+      }, 500)
+    })
+
+    return {
+      isAvailableSession,
+      availableAppointments,
+      initialLoading,
+      selectAppointment,
+    }
   },
+  // data() {
+  //   return {
+  //     appointments: data.appointments,
+  //     selectedAppointment: null,
+  //     timeoutId: 0,
+  //     initialLoading: false,
+  //   }
+  // },
+  // computed: {
+  //   availableAppointments() {
+  //     return this.appointments
+  //   },
+  //   isAvailableSession() {
+  //     return (appointmentId) => {
+  //       return JSON.parse(this.doctor.appointmentsPerWeek)?.[this.selectedWeekDay]?.includes(
+  //         appointmentId,
+  //       )
+  //     }
+  //   },
+  // },
+
+  // methods: {
+  //   selectAppointment(appointment) {
+  //     this.selectedAppointment = appointment
+  //   },
+  // },
+  // mounted() {
+  //   this.initialLoading = true
+  //   clearTimeout(this.timeoutId)
+
+  //   this.timeoutId = setTimeout(() => {
+  //     this.initialLoading = false
+  //   }, 500)
+  // },
 }
 </script>
 

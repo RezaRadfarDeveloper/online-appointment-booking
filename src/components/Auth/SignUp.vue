@@ -99,7 +99,12 @@ export default {
       validateField('password')
 
       if (Object.keys(errors.value).length === 0) {
-        await signUp({ email: form.email.value, password: form.password.value })
+        await signUp({
+          email: form.email.value,
+          password: form.password.value,
+          options: { userName: form.username.value },
+        })
+
         router.push('/confirmation')
       } else {
         console.log('Form has validation errors. Please correct them.')

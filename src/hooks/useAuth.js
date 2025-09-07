@@ -1,4 +1,5 @@
 // useAuth.js
+
 import { supabase } from '@/supabase'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router' // If using Vue Router
@@ -15,7 +16,7 @@ export function useAuth() {
     isLoading.value = true
     error.value = null
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       })
@@ -23,6 +24,9 @@ export function useAuth() {
       if (error) {
         throw new Error(error)
       }
+      user.value = { username: data.user.user_metadata.username, id: data.user.id }
+      console.log(user.value)
+
       isLoggedIn.value = true
     } catch (err) {
       error.value = err.message
@@ -32,20 +36,24 @@ export function useAuth() {
     }
   }
 
-  const signUp = async ({ email, password }) => {
+  const signUp = async ({ email, password, options }) => {
     isLoading.value = true
+
     error.value = null
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
         options: {
-          emailRedirectTo: 'http://localhost:5173/',
+          data: {
+            username: options.userName,
+          },
         },
       })
       if (error) {
         throw new Error(error.message)
       }
+      user.value = data.user.user_metadata.username
       isLoggedIn.value = true
     } catch (err) {
       error.value = err.message

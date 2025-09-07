@@ -2,15 +2,10 @@
   <h2 v-if="!selectedDoctor" class="doctorDetails">No DoctorSelected</h2>
   <div v-else class="doctorDetails">
     <doctor-item :doctor="selectedDoctor" :activeAction="false"></doctor-item>
-    <date-picker
-      @toggle-loader="setLoading"
-      @set-weekday-date="setWeekDayDate"
-      :doctorId="String(selectedDoctor.id)"
-    ></date-picker>
+    <date-picker @toggle-loader="setLoading" :doctorId="String(selectedDoctor.id)"></date-picker>
     <appointments-list
       :doctor="selectedDoctor"
       :isLoading="isLoadingAppointment"
-      :selected-week-day="selectedWeekDay"
     ></appointments-list>
   </div>
 </template>
@@ -32,13 +27,13 @@ export default {
 
   setup() {
     const { selectedDoctor } = useAppointmentDetails()
-    const selectedWeekDay = ref('Mon')
+    // const selectedWeekDay = ref('Mon')
     const isLoadingAppointment = ref(false)
     const timeoutId = ref(0)
-    const setWeekDayDate = ({ day, formattedDate }) => {
-      selectedWeekDay.value = day
-      console.log(formattedDate)
-    }
+    // const setWeekDayDate = ({ day, formattedDate }) => {
+    //   selectedWeekDay.value = day
+    //   console.log(formattedDate)
+    // }
 
     const setLoading = () => {
       isLoadingAppointment.value = !isLoadingAppointment.value
@@ -49,8 +44,8 @@ export default {
     }
 
     return {
-      setWeekDayDate,
-      selectedWeekDay,
+      // setWeekDayDate,
+      // selectedWeekDay,
       isLoadingAppointment,
       setLoading,
       selectedDoctor,

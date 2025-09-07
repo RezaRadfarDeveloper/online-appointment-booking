@@ -5,6 +5,7 @@ import AuthTabs from '@/pages/AuthTabs.vue'
 import ConfirmDetails from '@/pages/ConfirmDetails.vue'
 import OnScroll from '@/components/OnScroll.vue'
 import { useAuth } from './hooks/useAuth'
+import ThankYou from './pages/ThankYou.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -24,6 +25,12 @@ const router = createRouter({
       path: '/confirmation',
       component: ConfirmDetails,
       name: 'confirmation',
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/thank-you',
+      component: ThankYou,
+      name: 'thank-you',
       meta: { requiresAuth: true },
     },
     {

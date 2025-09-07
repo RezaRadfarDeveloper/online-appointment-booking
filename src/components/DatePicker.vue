@@ -17,9 +17,8 @@ export default {
   emits: ['setWeekdayDate', 'toggleLoader'],
 
   setup(props, { emit }) {
-    const { selectAppointment } = useAppointmentDetails()
+    const { selectAppointment, setFormattedDate, setWeekDay } = useAppointmentDetails()
     const date = ref(new Date())
-    const selectedDate = ref(null)
     const datepicker = ref(null)
 
     onMounted(() => {})
@@ -33,19 +32,17 @@ export default {
     const setDate = (d) => {
       //resetting selected appointment by date change as it might be available for the new date
       selectAppointment(null)
-      // emit('toggleLoader')
       datepicker.value.closeMenu()
       date.value = d
-      selectedDate.value = d
-      emit('setWeekdayDate', { day: weekDay.value, formattedDate: dateFormatted.value })
+      setWeekDay(weekDay.value)
+      setFormattedDate(dateFormatted.value)
+
       emit('toggleLoader')
     }
 
     return {
       date,
-      weekDay,
       datepicker,
-      selectedDate,
       dateFormatted,
       setDate,
     }
