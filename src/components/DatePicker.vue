@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { format } from 'date-fns'
@@ -14,14 +14,13 @@ export default {
   props: {
     doctorId: String,
   },
-  emits: ['setWeekdayDate', 'toggleLoader'],
+  emits: ['toggleLoader'],
 
   setup(props, { emit }) {
     const { selectAppointment, setFormattedDate, setWeekDay } = useAppointmentDetails()
-    const date = ref(new Date())
+    const date = ref(null)
     const datepicker = ref(null)
 
-    onMounted(() => {})
     const weekDay = computed(() => {
       return format(date.value, 'EEE')
     })
@@ -30,15 +29,18 @@ export default {
     })
 
     const setDate = (d) => {
-      //resetting selected appointment by date change as it might be available for the new date
+      //resetting selected appointment when date changes as it might not be available for the new date
       selectAppointment(null)
       datepicker.value.closeMenu()
       date.value = d
       setWeekDay(weekDay.value)
       setFormattedDate(dateFormatted.value)
-
       emit('toggleLoader')
     }
+
+    onMounted(() => {
+      setDate(new Date())
+    })
 
     return {
       date,

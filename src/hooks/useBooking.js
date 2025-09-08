@@ -10,11 +10,6 @@ export function useBooking() {
   const isLoading = ref(false)
 
   const bookAppointment = async () => {
-    // console.log('booking clicked')
-    // console.log(selectedDoctor.value)
-    // console.log(dayOfWeek.value)
-    // console.log(formattedDate.value)
-    // console.log(selectedAppointment.value.title)
     const bookingDetails = `${dayOfWeek.value},${formattedDate.value},${selectedAppointment.value.title}`
     isLoading.value = true
     const { error } = await supabase.from('bookings').insert({

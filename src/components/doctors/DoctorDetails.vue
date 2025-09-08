@@ -27,13 +27,8 @@ export default {
 
   setup() {
     const { selectedDoctor } = useAppointmentDetails()
-    // const selectedWeekDay = ref('Mon')
     const isLoadingAppointment = ref(false)
     const timeoutId = ref(0)
-    // const setWeekDayDate = ({ day, formattedDate }) => {
-    //   selectedWeekDay.value = day
-    //   console.log(formattedDate)
-    // }
 
     const setLoading = () => {
       isLoadingAppointment.value = !isLoadingAppointment.value
@@ -44,8 +39,6 @@ export default {
     }
 
     return {
-      // setWeekDayDate,
-      // selectedWeekDay,
       isLoadingAppointment,
       setLoading,
       selectedDoctor,
