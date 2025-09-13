@@ -21,7 +21,6 @@
 import { onMounted, ref } from 'vue'
 import DoctorItem from './DoctorItem.vue'
 import LoaderIcon from '@/ui/LoaderIcon.vue'
-// import { supabase } from '@/supabase'
 import { onUnmounted } from 'vue'
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 
@@ -44,7 +43,6 @@ export default {
 
     onMounted(() => {
       fetchDoctors()
-
       observer = new IntersectionObserver(handleIntersection, {
         root: null, // observe relative to the viewport
         rootMargin: '0px',

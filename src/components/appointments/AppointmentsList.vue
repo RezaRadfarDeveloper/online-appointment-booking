@@ -6,6 +6,7 @@
       v-for="appointment in availableAppointments"
       :appointment="appointment"
       :key="appointment.id"
+      :isBooked="isBookedSession(appointment.title)"
       :isAvailable="isAvailableSession(appointment.id)"
     ></appointment-item>
   </div>
@@ -16,6 +17,7 @@ import AppointmentItem from './AppointmentItem.vue'
 import data from '@/data'
 import { computed, onMounted, ref } from 'vue'
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+import { useBooking } from '@/hooks/useBooking'
 export default {
   components: {
     AppointmentItem,
@@ -24,7 +26,8 @@ export default {
   props: ['doctor', 'isLoading'],
 
   setup(props) {
-    const { dayOfWeek } = useAppointmentDetails()
+    const { dayOfWeek, formattedDate } = useAppointmentDetails()
+    const { bookedAppointments } = useBooking()
     const appointments = ref(data.appointments)
     const selectedAppointment = ref(null)
     const timeoutId = ref(0)
@@ -34,12 +37,6 @@ export default {
       return appointments.value
     })
 
-    // const isAvailableSession = computed(
-    //   () => (appointmentId) =>
-    //     JSON.parse(props.doctor.appointmentsPerWeek)?.[props.selectedWeekDay]?.includes(
-    //       appointmentId,
-    //     ),
-    // )
     const isAvailableSession = computed(() => {
       return (appointmentId) => {
         return JSON.parse(props.doctor.appointmentsPerWeek)?.[dayOfWeek.value || 'Mon']?.includes(
@@ -47,8 +44,18 @@ export default {
         )
       }
     })
+    const isBookedSession = computed(() => {
+      return (appointmentTitle) => {
+        return bookedAppointments.value?.includes(
+          `${dayOfWeek.value},${formattedDate.value},${appointmentTitle}`,
+        )
+      }
+    })
 
     const selectAppointment = (appointment) => {
+      console.log('here booked appointments', bookedAppointments.value)
+      console.log(bookedAppointments.value)
+
       selectedAppointment.value = appointment
     }
 
@@ -63,45 +70,12 @@ export default {
 
     return {
       isAvailableSession,
+      isBookedSession,
       availableAppointments,
       initialLoading,
       selectAppointment,
     }
   },
-  // data() {
-  //   return {
-  //     appointments: data.appointments,
-  //     selectedAppointment: null,
-  //     timeoutId: 0,
-  //     initialLoading: false,
-  //   }
-  // },
-  // computed: {
-  //   availableAppointments() {
-  //     return this.appointments
-  //   },
-  //   isAvailableSession() {
-  //     return (appointmentId) => {
-  //       return JSON.parse(this.doctor.appointmentsPerWeek)?.[this.selectedWeekDay]?.includes(
-  //         appointmentId,
-  //       )
-  //     }
-  //   },
-  // },
-
-  // methods: {
-  //   selectAppointment(appointment) {
-  //     this.selectedAppointment = appointment
-  //   },
-  // },
-  // mounted() {
-  //   this.initialLoading = true
-  //   clearTimeout(this.timeoutId)
-
-  //   this.timeoutId = setTimeout(() => {
-  //     this.initialLoading = false
-  //   }, 500)
-  // },
 }
 </script>
 

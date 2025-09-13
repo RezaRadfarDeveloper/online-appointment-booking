@@ -1,8 +1,8 @@
 <template>
   <button
     class="appointmentItem"
-    :class="isAvailable ? 'active' : ''"
-    :disabled="!isAvailable"
+    :class="[isAvailable ? 'active' : '', isBooked ? 'booked' : '']"
+    :disabled="!isAvailable || isBooked"
     @click="selectAppointment(appointment)"
   >
     {{ appointment.title }}
@@ -11,15 +11,22 @@
 
 <script>
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+import { computed } from 'vue'
 
 export default {
-  props: ['appointment', 'isAvailable'],
+  props: ['appointment', 'isAvailable', 'isBooked'],
 
-  setup() {
-    const { selectAppointment } = useAppointmentDetails()
+  setup(props) {
+    const { selectAppointment, formattedDate, dayOfWeek } = useAppointmentDetails()
+
+    const currentItemDetails = computed(() => {
+      // to recreate the same format as we save booking details in database,  making comparison between front and back-end easy
+      return `${dayOfWeek.value},${formattedDate.value},${props.appointment.title}`
+    })
 
     return {
       selectAppointment,
+      currentItemDetails,
     }
   },
 }
@@ -41,6 +48,11 @@ export default {
 .active {
   background-color: rgb(4, 131, 140);
   cursor: pointer;
+}
+
+.booked {
+  background-color: rgb(243, 88, 88);
+  cursor: not-allowed;
 }
 
 .selected {

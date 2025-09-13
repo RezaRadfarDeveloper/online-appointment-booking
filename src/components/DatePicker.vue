@@ -1,12 +1,20 @@
 <template>
-  <VueDatePicker v-model="date" @date-update="setDate" ref="datepicker"></VueDatePicker>
+  <VueDatePicker
+    v-model="date"
+    @date-update="setDate"
+    ref="datepicker"
+    :enable-time-picker="false"
+    :min-date="new Date()"
+    :max-date="addMonths(new Date(), 1)"
+    hide-offset-dates
+  ></VueDatePicker>
 </template>
 
 <script>
 import { ref, computed, onMounted } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-import { format } from 'date-fns'
+import { addMonths, format } from 'date-fns'
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 
 export default {
@@ -47,6 +55,7 @@ export default {
       datepicker,
       dateFormatted,
       setDate,
+      addMonths,
     }
   },
 }

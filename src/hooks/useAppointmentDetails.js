@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 const localAvailableDoctors = ref([])
 const selectedDoctor = ref(null)
+const selectedDoctorId = ref(null)
 const selectedAppointment = ref(null)
 const formattedDate = ref(null)
 const dayOfWeek = ref(null)
@@ -17,6 +18,7 @@ export function useAppointmentDetails() {
   const setDoctor = (doctorId) => {
     selectedAppointment.value = null
     selectedDoctor.value = localAvailableDoctors.value.find((doctor) => doctor.id === doctorId)
+    selectedDoctorId.value = doctorId
   }
 
   const selectAppointment = (appointment) => {
@@ -63,10 +65,10 @@ export function useAppointmentDetails() {
     setFormattedDate,
     selectedDoctor,
     selectedAppointment,
+    selectedDoctorId,
     noMoreContent,
     fetchDoctors,
     bottomSentinel,
-
     loading,
   }
 }
