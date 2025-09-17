@@ -37,7 +37,7 @@ export default {
     })
 
     const setDate = (d) => {
-      //resetting selected appointment when date changes as it might not be available for the new date
+      //resetting selected appointment session when date changes as it might not be available for the new date
       selectAppointment(null)
       datepicker.value.closeMenu()
       date.value = d

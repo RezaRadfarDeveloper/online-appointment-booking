@@ -15,7 +15,9 @@
         {{ isLoading ? 'Booking...' : 'Confirm' }}
       </ButtonAction>
     </div>
-    <router-link class="router-link" to="/">Not sure, Back to doctors list</router-link>
+    <router-link class="router-link" @click.native="handleNavigation" to="/"
+      >Not sure, Back to doctors list</router-link
+    >
   </div>
 </template>
 
@@ -23,6 +25,7 @@
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 import { useAuth } from '@/hooks/useAuth'
 import { useBooking } from '@/hooks/useBooking'
+import useStepperBar from '@/hooks/useStepperBar'
 
 import ButtonAction from '@/ui/ButtonAction.vue'
 import { useRouter } from 'vue-router'
@@ -36,21 +39,32 @@ export default {
 
     const { selectedDoctor, selectedAppointment, formattedDate, dayOfWeek } =
       useAppointmentDetails()
+    // const { isLoggedIn } = useAuth()
+    const { previousStep, nextStep, setStep } = useStepperBar(4)
 
     const { bookAppointment, isLoading } = useBooking()
 
-    const { user } = useAuth()
+    const { user, isLoggedIn } = useAuth()
 
     const confirmAppointment = async () => {
       console.log('confirmed appointment booking')
       await bookAppointment()
+      setStep(1)
+      nextStep()
       router.push('/thank-you')
+    }
+
+    const handleNavigation = () => {
+      setStep(isLoggedIn ? 2 : 1)
+      previousStep()
     }
 
     return {
       router,
       formattedDate,
       confirmAppointment,
+      previousStep,
+      handleNavigation,
       dayOfWeek,
       user,
       selectedDoctor,

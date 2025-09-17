@@ -45,16 +45,16 @@ router.beforeEach((to, from, next) => {
   const { isLoggedIn } = useAuth()
   if (to.meta.requiresAuth && !isLoggedIn.value) {
     // If the route requires authentication and the user is not authenticated, redirect to login
-    console.log(' confirmation', isLoggedIn.value)
 
     next({ name: 'auth' })
   } else if (from.name !== 'home' && to.name === 'auth' && isLoggedIn.value) {
     // If the user is already authenticated and tries to access the login page, redirect to dashboard
-    console.log('auth route', isLoggedIn.value)
+
     next({ name: 'home' })
   } else if (from.name === 'home' && to.name === 'auth' && isLoggedIn.value) {
     // If the user is already authenticated and tries to access the login page, redirect to dashboard
     console.log('auth passed to confirmation route', isLoggedIn.value)
+
     next({ name: 'confirmation' })
   } else {
     // Allow navigation

@@ -17,7 +17,9 @@
         <ToastAlert :message="error" />
       </div>
     </form>
-    <router-link class="router-link" to="/">Back to doctors' list</router-link>
+    <router-link class="router-link" @click.native="previousStep" to="/"
+      >Back to doctors' list</router-link
+    >
   </div>
 </template>
 <script>
@@ -27,6 +29,7 @@ import ToastAlert from '@/components/ToastAlert.vue'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import useStepperBar from '@/hooks/useStepperBar'
 
 export default {
   components: {
@@ -35,6 +38,8 @@ export default {
   },
   setup() {
     const { login, error, isLoading, isLoggedIn } = useAuth()
+    const { nextStep, previousStep, setStep } = useStepperBar(4)
+
     const router = useRouter()
 
     const email = ref('')
@@ -42,6 +47,10 @@ export default {
 
     const AuthLogin = async () => {
       await login({ email: email.value, password: password.value })
+      console.log('back home')
+
+      setStep(1)
+      nextStep()
       router.push('/confirmation')
     }
 
@@ -50,6 +59,7 @@ export default {
       email,
       password,
       router,
+      previousStep,
       isLoading,
       error,
       isLoggedIn,
