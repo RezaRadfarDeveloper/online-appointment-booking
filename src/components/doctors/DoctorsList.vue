@@ -1,6 +1,5 @@
 <template>
   <div class="doctorsList">
-    <h2>doctors list</h2>
     <div class="infinite-scroll-container" @scroll="handleScroll">
       <doctor-item
         v-for="doctor in localAvailableDoctors"

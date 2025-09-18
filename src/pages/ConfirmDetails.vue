@@ -1,24 +1,26 @@
 <template>
-  <div class="confirm-details">
-    <h2>Appointment confirmation</h2>
-    <section>
-      <span>Doctor details:{{ selectedDoctor.fullName }}, {{ selectedDoctor.expertise }}</span>
-      <span
-        >Appointment Info:{{ dayOfWeek }}, {{ formattedDate }},{{
-          selectedAppointment?.title
-        }}</span
+  <BaseLayout>
+    <div class="confirm-details">
+      <h2>Appointment confirmation</h2>
+      <section>
+        <span>Doctor details:{{ selectedDoctor.fullName }}, {{ selectedDoctor.expertise }}</span>
+        <span
+          >Appointment Info:{{ dayOfWeek }}, {{ formattedDate }},{{
+            selectedAppointment?.title
+          }}</span
+        >
+        <span>Patients detail: {{ user.username }}</span>
+      </section>
+      <div class="btn-action">
+        <ButtonAction @click="confirmAppointment" :is-loading="isLoading">
+          {{ isLoading ? 'Booking...' : 'Confirm' }}
+        </ButtonAction>
+      </div>
+      <router-link class="router-link" @click.native="handleNavigation" to="/"
+        >Not sure, Back to doctors list</router-link
       >
-      <span>Patients detail: {{ user.username }}</span>
-    </section>
-    <div class="btn-action">
-      <ButtonAction @click="confirmAppointment" :is-loading="isLoading">
-        {{ isLoading ? 'Booking...' : 'Confirm' }}
-      </ButtonAction>
     </div>
-    <router-link class="router-link" @click.native="handleNavigation" to="/"
-      >Not sure, Back to doctors list</router-link
-    >
-  </div>
+  </BaseLayout>
 </template>
 
 <script>
@@ -26,6 +28,7 @@ import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 import { useAuth } from '@/hooks/useAuth'
 import { useBooking } from '@/hooks/useBooking'
 import useStepperBar from '@/hooks/useStepperBar'
+import BaseLayout from '@/ui/BaseLayout.vue'
 
 import ButtonAction from '@/ui/ButtonAction.vue'
 import { useRouter } from 'vue-router'
@@ -33,6 +36,7 @@ import { useRouter } from 'vue-router'
 export default {
   components: {
     ButtonAction,
+    BaseLayout,
   },
   setup() {
     const router = useRouter()
@@ -83,7 +87,7 @@ export default {
   width: 50vw;
   height: 60vh;
   padding: 1rem;
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

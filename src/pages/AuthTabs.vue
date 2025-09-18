@@ -1,30 +1,41 @@
 <template>
-  <div class="auth-tab">
-    <div class="tabs">
-      <button class="tab" @click="activeTab = 'signIn'" :class="{ active: activeTab === 'signIn' }">
-        Sign In
-      </button>
-      <button class="tab" @click="activeTab = 'signUp'" :class="{ active: activeTab === 'signUp' }">
-        Sign Up
-      </button>
+  <BaseLayout>
+    <div class="auth-tab">
+      <div class="tabs">
+        <button
+          class="tab"
+          @click="activeTab = 'signIn'"
+          :class="{ active: activeTab === 'signIn' }"
+        >
+          Sign In
+        </button>
+        <button
+          class="tab"
+          @click="activeTab = 'signUp'"
+          :class="{ active: activeTab === 'signUp' }"
+        >
+          Sign Up
+        </button>
+      </div>
+      <div class="form-container">
+        <transition name="fade" mode="out-in">
+          <div v-if="activeTab === 'signIn'">
+            <SignInForm @signedIn="handleSignedIn" />
+          </div>
+          <div v-else-if="activeTab === 'signUp'">
+            <SignUpForm @signedUp="handleSignedUp" />
+          </div>
+        </transition>
+      </div>
     </div>
-    <div class="form-container">
-      <transition name="fade" mode="out-in">
-        <div v-if="activeTab === 'signIn'">
-          <SignInForm @signedIn="handleSignedIn" />
-        </div>
-        <div v-else-if="activeTab === 'signUp'">
-          <SignUpForm @signedUp="handleSignedUp" />
-        </div>
-      </transition>
-    </div>
-  </div>
+  </BaseLayout>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import SignInForm from '@/components/Auth/SignIn.vue'
 import SignUpForm from '@/components/Auth/SignUp.vue'
+import BaseLayout from '@/ui/BaseLayout.vue'
 
 defineEmits(['signedUp'])
 const activeTab = ref('signIn')

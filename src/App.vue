@@ -11,15 +11,6 @@
 <script>
 export default {
   name: 'App',
-
-  computed: {
-    auth() {
-      return this.$store.getters.auth
-    },
-    user() {
-      return this.$store.getters['user/getUsers']
-    },
-  },
 }
 </script>
 
