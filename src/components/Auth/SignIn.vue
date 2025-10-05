@@ -47,7 +47,6 @@ export default {
 
     const AuthLogin = async () => {
       await login({ email: email.value, password: password.value })
-      console.log('back home')
 
       setStep(1)
       nextStep()

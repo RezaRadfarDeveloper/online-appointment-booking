@@ -5,8 +5,10 @@
         class="progressbar-step-button"
         :class="{ active: currentStep == item, completed: currentStep > item }"
       >
-        <span v-if="currentStep > item" class="progressbar-step-indicator">@ </span>
-        <span v-else class="progressbar-step-indicator">{{ item }} </span>
+        <span class="progressbar-step-indicator">
+          <span v-if="currentStep > item" class="checked-icon"><CheckSvg /></span>
+          <span v-else class="number">{{ item }}</span>
+        </span>
         <span class="progressbar-step-label"> Step {{ item }}</span>
       </button>
       <div class="progressbar-step-connector"></div>
@@ -16,8 +18,12 @@
 
 <script>
 import useStepperBar from '@/hooks/useStepperBar'
+import CheckSvg from './icons/CheckSvg.vue'
 
 export default {
+  components: {
+    CheckSvg,
+  },
   setup() {
     const { currentStep } = useStepperBar(1)
 
@@ -54,13 +60,30 @@ export default {
   background-color: #5856d60d;
 }
 
-.progressbar-step-button.completed {
-  .progressbar-step-indicator {
-    color: white;
-    border-color: #5856d6;
-    background-color: #5856d6;
-  }
+.checked-icon {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 1s ease-in-out;
 }
+
+.progressbar-step-button.completed .checked-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+.progressbar-step-button.completed .progressbar-step-indicator {
+  color: white;
+  border-color: #5856d6;
+  background-color: #5856d6;
+}
+
 .progressbar-step-button.completed ~ .progressbar-step-connector {
   background-color: #5856d6;
 }
@@ -85,15 +108,15 @@ export default {
   border-radius: 30rem;
   background: transparent;
   transition:
-    color 0.15s ease-in-out,
-    background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+    color 1s ease-in-out,
+    background-color 1s ease-in-out,
+    border-color 1s ease-in-out,
+    box-shadow 1s ease-in-out;
 }
 .progressbar-step-connector {
   flex: 1;
   height: 2px;
   background: gray;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 1s ease-in-out;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="doctorItem" @click="setDoctor(doctor.id)">
+  <div class="doctorItem" @click="selectDoctor(doctor.id)">
     <div class="doctorItem__item--details">
       <div class="doctorItem__item--details-img">
         <img src="/src/assets/img/doctor-image.png" alt="" srcset="" />
@@ -18,6 +18,7 @@
 
 <script>
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
 export default {
   name: 'DoctorItem',
@@ -26,11 +27,28 @@ export default {
     activeAction: Boolean,
   },
 
-  setup() {
-    const { setDoctor } = useAppointmentDetails()
+  setup(props) {
+    const { setDoctor, setDoctorId } = useAppointmentDetails()
+
+    const selectDoctor = (id) => {
+      const doctorId = useLocalStorage('doctor_id')
+      const doctor = useLocalStorage('doctor')
+      // doctorId.value = id
+      // doctor.value = selectedDoctor.value
+      // console.log(props.doctor)
+
+      setDoctor(props.doctor)
+      setDoctorId(id)
+      doctorId.value = id
+      doctor.value = props.doctor
+
+      // console.log(selectedDoctor.value)
+      // console.log(doctorId.value)
+      // console.log(doctor.value)
+    }
 
     return {
-      setDoctor,
+      selectDoctor,
     }
   },
 }

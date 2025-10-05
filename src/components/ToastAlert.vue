@@ -1,3 +1,6 @@
+<template>
+  <h1></h1>
+</template>
 <script>
 import { watch } from 'vue'
 import { toast } from 'vue3-toastify'

@@ -16,6 +16,7 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { addMonths, format } from 'date-fns'
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+import useLocalStorage from '@/hooks/useLocalStorage'
 
 export default {
   components: { VueDatePicker },
@@ -25,8 +26,9 @@ export default {
   emits: ['toggleLoader'],
 
   setup(props, { emit }) {
-    const { selectAppointment, setFormattedDate, setWeekDay } = useAppointmentDetails()
-    const date = ref(null)
+    const { selectAppointment, setFormattedDate, setWeekDay, selectedDate, selectDate } =
+      useAppointmentDetails()
+    const date = ref(selectedDate.value)
     const datepicker = ref(null)
 
     const weekDay = computed(() => {
@@ -38,16 +40,25 @@ export default {
 
     const setDate = (d) => {
       //resetting selected appointment session when date changes as it might not be available for the new date
+      const weekDayStorage = useLocalStorage('appointment_week_day')
+      const formattedDateStorage = useLocalStorage('appointment_formatted_date')
+      const dateLocalstorage = useLocalStorage('date')
       selectAppointment(null)
       datepicker.value.closeMenu()
       date.value = d
+      console.log(date.value)
+
+      dateLocalstorage.value = d
+      selectDate(d)
       setWeekDay(weekDay.value)
       setFormattedDate(dateFormatted.value)
+      weekDayStorage.value = weekDay.value
+      formattedDateStorage.value = dateFormatted.value
       emit('toggleLoader')
     }
 
     onMounted(() => {
-      setDate(new Date())
+      setDate(selectedDate.value ? selectedDate.value : new Date())
     })
 
     return {

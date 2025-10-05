@@ -3,7 +3,7 @@
     class="appointmentItem"
     :class="[isAvailable ? 'active' : '', isBooked ? 'booked' : '']"
     :disabled="!isAvailable || isBooked"
-    @click="selectAppointment(appointment)"
+    @click="handleSelectAppointment(appointment)"
   >
     {{ appointment.title }}
   </button>
@@ -11,6 +11,7 @@
 
 <script>
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+import useLocalStorage from '@/hooks/useLocalStorage'
 import { computed } from 'vue'
 
 export default {
@@ -24,8 +25,14 @@ export default {
       return `${dayOfWeek.value},${formattedDate.value},${props.appointment.title}`
     })
 
+    const handleSelectAppointment = (appointment) => {
+      const selectedAppointment = useLocalStorage('selected_appointment')
+      selectAppointment(appointment)
+      selectedAppointment.value = appointment
+    }
+
     return {
-      selectAppointment,
+      handleSelectAppointment,
       currentItemDetails,
     }
   },

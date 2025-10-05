@@ -11,11 +11,12 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import AppointmentsList from '../appointments/AppointmentsList.vue'
 import DatePicker from '../DatePicker.vue'
 import DoctorItem from './DoctorItem.vue'
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
+// import useLocalStorage from '@/hooks/useLocalStorage'
 
 export default {
   props: ['doctor'],
@@ -30,6 +31,9 @@ export default {
     const isLoadingAppointment = ref(false)
     const timeoutId = ref(0)
 
+    // const doctorId = useLocalStorage('doctor_id')
+    // const doctor = useLocalStorage('doctor')
+
     const setLoading = () => {
       isLoadingAppointment.value = !isLoadingAppointment.value
       clearTimeout(timeoutId)
@@ -37,6 +41,25 @@ export default {
         isLoadingAppointment.value = !isLoadingAppointment.value
       }, 500)
     }
+
+    onMounted(() => {
+      // console.log(doctorId.value)
+      // console.log(doctor.value)
+    })
+
+    // watch(
+    //   selectedDoctorId,
+    //   () => {
+    //     console.log(selectedDoctorId.value)
+    //     setDoctorId(selectedDoctorId.value)
+    //     // setDoctor(selectedDoctor.value)
+
+    //     console.log(selectedDoctor.value)
+    //   },
+    //   {
+    //     immediate: true,
+    //   },
+    // )
 
     return {
       isLoadingAppointment,

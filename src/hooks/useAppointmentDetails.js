@@ -7,6 +7,7 @@ const selectedDoctorId = ref(null)
 const selectedAppointment = ref(null)
 const formattedDate = ref(null)
 const dayOfWeek = ref(null)
+const selectedDate = ref(null)
 const page = ref(1)
 const range = 4
 const loading = ref(false)
@@ -15,10 +16,18 @@ export function useAppointmentDetails() {
   const noMoreContent = ref(false)
   const bottomSentinel = ref(null) // Reference to the element at the bottom
 
-  const setDoctor = (doctorId) => {
+  const setDoctorId = (doctorId) => {
     selectedAppointment.value = null
-    selectedDoctor.value = localAvailableDoctors.value.find((doctor) => doctor.id === doctorId)
+    // selectedDoctor.value = localAvailableDoctors.value.find((doctor) => doctor.id === doctorId)
     selectedDoctorId.value = doctorId
+  }
+
+  const selectDate = (sDate) => {
+    selectedDate.value = sDate
+  }
+
+  const setDoctor = (doctor) => {
+    selectedDoctor.value = doctor
   }
 
   const selectAppointment = (appointment) => {
@@ -59,10 +68,13 @@ export function useAppointmentDetails() {
     localAvailableDoctors,
     formattedDate,
     dayOfWeek,
+    selectedDate,
     setWeekDay,
     setDoctor,
+    setDoctorId,
     selectAppointment,
     setFormattedDate,
+    selectDate,
     selectedDoctor,
     selectedAppointment,
     selectedDoctorId,

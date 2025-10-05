@@ -9,8 +9,31 @@
 </template>
 
 <script>
+import { onMounted } from 'vue'
+import useLocalStorage from './hooks/useLocalStorage'
+import { useAppointmentDetails } from './hooks/useAppointmentDetails'
+
 export default {
   name: 'App',
+  setup() {
+    const { setDoctor, setDoctorId, setFormattedDate, setWeekDay, selectAppointment, selectDate } =
+      useAppointmentDetails()
+    onMounted(() => {
+      const doctorId = useLocalStorage('doctor_id')
+      const doctor = useLocalStorage('doctor')
+      const weekDay = useLocalStorage('appointment_week_day')
+      const date = useLocalStorage('date')
+      const dateFormatted = useLocalStorage('appointment_formatted_date')
+      const selectedAppointment = useLocalStorage('selected_appointment')
+
+      setDoctorId(doctorId.value)
+      setDoctor(doctor.value)
+      selectDate(date.value)
+      setWeekDay(weekDay.value)
+      setFormattedDate(dateFormatted.value)
+      selectAppointment(selectedAppointment.value)
+    })
+  },
 }
 </script>
 
