@@ -14,7 +14,7 @@
         <ButtonAction :isLoading="isLoading">
           {{ isLoading ? 'Logging in...' : 'Login' }}
         </ButtonAction>
-        <ToastAlert :message="error" />
+        <ToastAlert :message="err" />
       </div>
     </form>
     <router-link class="router-link" @click.native="previousStep" to="/"
@@ -37,7 +37,7 @@ export default {
     ToastAlert,
   },
   setup() {
-    const { login, error, isLoading, isLoggedIn } = useAuth()
+    const { login, err, isLoading, isLoggedIn } = useAuth()
     const { nextStep, previousStep, setStep } = useStepperBar(4)
 
     const router = useRouter()
@@ -60,7 +60,7 @@ export default {
       router,
       previousStep,
       isLoading,
-      error,
+      err,
       isLoggedIn,
     }
   },

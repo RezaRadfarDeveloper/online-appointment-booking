@@ -10,60 +10,54 @@ const isLoading = ref(false)
 
 export function useAuth() {
   const router = useRouter() // Initialize router if needed
-  const error = ref(null)
+  const err = ref(null)
 
   const login = async ({ email, password }) => {
     isLoading.value = true
-    error.value = null
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      })
+    err.value = null
 
-      if (error) {
-        throw new Error(error)
-      }
-      user.value = { username: data.user.user_metadata.username, id: data.user.id }
-      console.log(user.value)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
 
-      isLoggedIn.value = true
-    } catch (err) {
-      error.value = err.message
+    if (error) {
+      err.value = error.message
       isLoggedIn.value = false
-    } finally {
       isLoading.value = false
+      throw new Error(error)
     }
+    user.value = { username: data.user.user_metadata.username, id: data.user.id }
+    console.log(user.value)
+    isLoggedIn.value = true
   }
 
   const signUp = async ({ email, password, options }) => {
     isLoading.value = true
 
-    error.value = null
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            username: options.userName,
-          },
+    err.value = null
+
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          username: options.userName,
         },
-      })
-      if (error) {
-        throw new Error(error.message)
-      }
-      user.value = data.user.user_metadata.username
-      isLoggedIn.value = true
-    } catch (err) {
-      error.value = err.message
-    } finally {
+      },
+    })
+    if (error) {
+      err.value = error.message
       isLoading.value = false
+      throw new Error(error.message)
     }
+    user.value = data.user.user_metadata.username
+    isLoggedIn.value = true
+    isLoading.value = false
   }
 
   const logout = async () => {
-    error.value = null
+    err.value = null
     let { error } = await supabase.auth.signOut()
 
     if (error) {
@@ -79,7 +73,7 @@ export function useAuth() {
     isLoggedIn,
     user,
     isLoading,
-    error,
+    err,
     login,
     logout,
     signUp,

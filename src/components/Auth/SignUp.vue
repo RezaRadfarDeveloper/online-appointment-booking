@@ -40,11 +40,13 @@
         <ButtonAction :isLoading="isLoading">
           {{ isLoading ? 'Registering...' : 'Sign up' }}
         </ButtonAction>
-        <ToastAlert :message="error" />
+        <ToastAlert :message="err" />
       </div>
     </form>
-
-    <router-link class="router-link" to="/">Back to doctors' list</router-link>
+    <!-- <router-link class="router-link" to="/">Back to doctors' list</router-link> -->
+    <router-link class="router-link" @click.native="previousStep" to="/"
+      >Back to doctors' list</router-link
+    >
   </div>
 </template>
 
@@ -54,6 +56,7 @@ import ButtonAction from '@/ui/ButtonAction.vue'
 import { ref, computed } from 'vue'
 import ToastAlert from '../ToastAlert.vue'
 import { useRouter } from 'vue-router'
+import useStepperBar from '@/hooks/useStepperBar'
 
 export default {
   components: {
@@ -63,7 +66,9 @@ export default {
   emits: ['signedUp'],
 
   setup() {
-    const { isLoading, isLoggedIn, error, user, signUp } = useAuth()
+    const { isLoading, isLoggedIn, err, user, signUp } = useAuth()
+    const { nextStep, previousStep, setStep } = useStepperBar(4)
+
     const router = useRouter()
 
     const form = {
@@ -104,7 +109,8 @@ export default {
           password: form.password.value,
           options: { userName: form.username.value },
         })
-
+        setStep(1)
+        nextStep()
         router.push('/confirmation')
       } else {
         console.log('Form has validation errors. Please correct them.')
@@ -117,8 +123,9 @@ export default {
       // isMobileValid,
       isPasswordValid,
       isEmailValid,
-      error,
+      err,
       errors,
+      previousStep,
       submitForm,
       validateField,
       isLoggedIn,
