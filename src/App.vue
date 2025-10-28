@@ -12,12 +12,15 @@
 import { onMounted } from 'vue'
 import useLocalStorage from './hooks/useLocalStorage'
 import { useAppointmentDetails } from './hooks/useAppointmentDetails'
+import { useAuth } from './hooks/useAuth'
 
 export default {
   name: 'App',
   setup() {
     const { setDoctor, setDoctorId, setFormattedDate, setWeekDay, selectAppointment, selectDate } =
       useAppointmentDetails()
+    const { setIsLoggedIn, setUser } = useAuth()
+
     onMounted(() => {
       const doctorId = useLocalStorage('doctor_id')
       const doctor = useLocalStorage('doctor')
@@ -25,6 +28,8 @@ export default {
       const date = useLocalStorage('date')
       const dateFormatted = useLocalStorage('appointment_formatted_date')
       const selectedAppointment = useLocalStorage('selected_appointment')
+      const isLoggedIn = useLocalStorage('is_loggedIn')
+      const user = useLocalStorage('user')
 
       setDoctorId(doctorId.value)
       setDoctor(doctor.value)
@@ -32,6 +37,8 @@ export default {
       setWeekDay(weekDay.value)
       setFormattedDate(dateFormatted.value)
       selectAppointment(selectedAppointment.value)
+      setIsLoggedIn(isLoggedIn.value)
+      setUser(user.value)
     })
   },
 }

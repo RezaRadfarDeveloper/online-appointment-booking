@@ -17,7 +17,7 @@ export default function useLocalStorage(key) {
   const write = () => {
     // console.log('write uselocalstorage')
 
-    if (storedValue === '') localStorage.removeItem(key)
+    if (storedValue === '' || val.value === null) localStorage.removeItem(key)
     else localStorage.setItem(key, JSON.stringify(val.value))
   }
   watch(val, write)

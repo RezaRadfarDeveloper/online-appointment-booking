@@ -39,14 +39,13 @@ export default {
     })
 
     const setDate = (d) => {
-      //resetting selected appointment session when date changes as it might not be available for the new date
       const weekDayStorage = useLocalStorage('appointment_week_day')
       const formattedDateStorage = useLocalStorage('appointment_formatted_date')
       const dateLocalstorage = useLocalStorage('date')
+      //resetting selected appointment session when date changes as it might not be available for the new date
       selectAppointment(null)
       datepicker.value.closeMenu()
       date.value = d
-      console.log(date.value)
 
       dateLocalstorage.value = d
       selectDate(d)

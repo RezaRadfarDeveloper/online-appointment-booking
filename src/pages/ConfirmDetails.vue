@@ -1,6 +1,6 @@
 <template>
   <BaseLayout>
-    <div class="confirm-details">
+    <div v-if="isLoggedIn" class="confirm-details">
       <h2>Appointment confirmation</h2>
       <section>
         <span>Doctor details:{{ selectedDoctor.fullName }}, {{ selectedDoctor.expertise }}</span>
@@ -74,6 +74,7 @@ export default {
       selectedDoctor,
       selectedAppointment,
       isLoading,
+      isLoggedIn,
     }
   },
 }

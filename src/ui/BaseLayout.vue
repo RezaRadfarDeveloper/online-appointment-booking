@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <header>
+      <NavBar />
       <ProgressBar />
     </header>
     <main>
@@ -13,11 +14,13 @@
 </template>
 
 <script>
+import NavBar from '@/components/NavBar.vue'
 import ProgressBar from '@/components/ProgressBar.vue'
 
 export default {
   components: {
     ProgressBar,
+    NavBar,
   },
   setup() {
     return {}

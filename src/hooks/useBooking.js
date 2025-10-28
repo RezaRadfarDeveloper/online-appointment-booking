@@ -39,9 +39,23 @@ export function useBooking() {
     return data
   }
 
+  const fetchUserBookedAppointments = async (userId) => {
+    const { data, error } = await supabase
+      .from('bookings')
+      .select('booking_details, doctors(fullName, expertise,address)')
+      .eq('patient_id', userId)
+
+    if (error) {
+      throw new Error('Failed to fetch booked appointments for you')
+    }
+
+    return data
+  }
+
   watch(
     selectedDoctorId,
     async () => {
+      if (!selectedDoctorId.value) return
       const appointments = await fetchBookedAppointment(selectedDoctorId.value)
       bookedAppointments.value = appointments.map((appointment) => {
         return appointment.booking_details
@@ -53,6 +67,7 @@ export function useBooking() {
   return {
     bookAppointment,
     fetchBookedAppointment,
+    fetchUserBookedAppointments,
     bookedAppointments,
     isLoading,
   }

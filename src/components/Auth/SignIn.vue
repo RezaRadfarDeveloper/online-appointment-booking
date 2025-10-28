@@ -50,6 +50,8 @@ export default {
 
       setStep(1)
       nextStep()
+      email.value = ''
+      password.value = ''
       router.push('/confirmation')
     }
 
