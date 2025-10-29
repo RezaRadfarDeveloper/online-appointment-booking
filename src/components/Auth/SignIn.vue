@@ -12,7 +12,8 @@
       </div>
       <div class="user-box btn-action">
         <ButtonAction :isLoading="isLoading">
-          {{ isLoading ? 'Logging in...' : 'Login' }}
+          <span v-if="isLoading"><MiniLoaderIcon /></span>
+          <span v-else><p class="loading">Login</p></span>
         </ButtonAction>
         <ToastAlert :message="err" />
       </div>
@@ -30,10 +31,12 @@ import ToastAlert from '@/components/ToastAlert.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import useStepperBar from '@/hooks/useStepperBar'
+import MiniLoaderIcon from '@/ui/MiniLoaderIcon.vue'
 
 export default {
   components: {
     ButtonAction,
+    MiniLoaderIcon,
     ToastAlert,
   },
   setup() {
@@ -143,5 +146,13 @@ export default {
 .router-link {
   align-self: center;
   margin-top: 1rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+  margin: 1.75px;
 }
 </style>

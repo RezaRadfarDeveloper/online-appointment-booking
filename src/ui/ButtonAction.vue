@@ -13,7 +13,7 @@ export default {
 <style scoped>
 .submit {
   width: 20rem;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   border-radius: 10px;
   border: none;
   background-color: #ff8c00;
@@ -23,6 +23,6 @@ export default {
 
 .inActive {
   cursor: not-allowed;
-  background-color: #b0aeae;
+  background-color: #ffb459;
 }
 </style>

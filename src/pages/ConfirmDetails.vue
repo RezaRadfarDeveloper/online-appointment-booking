@@ -13,7 +13,8 @@
       </section>
       <div class="btn-action">
         <ButtonAction @click="confirmAppointment" :is-loading="isLoading">
-          {{ isLoading ? 'Booking...' : 'Confirm' }}
+          <span v-if="isLoading"><MiniLoaderIcon /></span>
+          <span v-else><p class="loading">confirm</p></span>
         </ButtonAction>
       </div>
       <router-link class="router-link" @click.native="handleNavigation" to="/"
@@ -31,12 +32,14 @@ import useStepperBar from '@/hooks/useStepperBar'
 import BaseLayout from '@/ui/BaseLayout.vue'
 
 import ButtonAction from '@/ui/ButtonAction.vue'
+import MiniLoaderIcon from '@/ui/MiniLoaderIcon.vue'
 import { useRouter } from 'vue-router'
 
 export default {
   components: {
     ButtonAction,
     BaseLayout,
+    MiniLoaderIcon,
   },
   setup() {
     const router = useRouter()

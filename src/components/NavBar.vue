@@ -1,9 +1,9 @@
 <template>
   <nav>
-    <span v-if="!isLoggedIn" @click="checkAuth">Login /sign up</span>
+    <button :disabled="isLoading" v-if="!isLoggedIn" @click="checkAuth">Login /sign up</button>
     <template v-else>
-      <span @click="checkAccount">account</span>
-      <span @click="signOut">log out</span>
+      <button :disabled="isLoading" @click="checkAccount">account</button>
+      <button :disabled="isLoading" @click="signOut">log out</button>
     </template>
   </nav>
 </template>
@@ -16,10 +16,9 @@ import { useRouter } from 'vue-router'
 export default {
   setup() {
     const router = useRouter()
-    const { logout, isLoggedIn } = useAuth()
+    const { logout, isLoggedIn, setIsLoggedIn, setUser, isLoading } = useAuth()
     const { setDoctor, setDoctorId, setWeekDay, selectDate, setFormattedDate, selectAppointment } =
       useAppointmentDetails()
-    const { setIsLoggedIn, setUser } = useAuth()
 
     const checkAccount = () => {
       router.push('/account')
@@ -66,6 +65,7 @@ export default {
       checkAuth,
       isLoggedIn,
       signOut,
+      isLoading,
     }
   },
 }
@@ -79,10 +79,14 @@ nav {
   padding: 0.75rem;
 }
 
-span {
+button {
   background-color: #ff8c00;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
+  width: 8rem;
+  height: 2.5rem;
+  text-align: center;
   border-radius: 5px;
+  border: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
   &:hover {

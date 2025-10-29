@@ -33,6 +33,7 @@ export function useAuth() {
     user.value = { username: data.user.user_metadata.username, id: data.user.id }
     userStorage.value = user.value
     isLoggedInStorage.value = true
+    isLoading.value = false
     isLoggedIn.value = true
   }
 
