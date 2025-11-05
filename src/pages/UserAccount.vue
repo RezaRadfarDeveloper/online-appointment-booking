@@ -17,7 +17,7 @@ import BookingItem from '@/components/bookings/BookingItem.vue'
 import { useAuth } from '@/hooks/useAuth'
 import { useBooking } from '@/hooks/useBooking'
 import LoaderIcon from '@/ui/LoaderIcon.vue'
-import { onMounted, ref } from 'vue'
+import { onActivated, onDeactivated, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -31,7 +31,15 @@ export default {
     const router = useRouter()
     const { fetchUserBookedAppointments } = useBooking()
     const isLoading = ref(false)
-    onMounted(async () => {
+    // onMounted(async () => {
+    //   isLoading.value = true
+    //   appointments.value = await fetchUserBookedAppointments(user.value.id)
+    //   isLoading.value = false
+    //   console.log(appointments.value)
+    // })
+
+    onDeactivated(() => console.log('Account deactivated'))
+    onActivated(async () => {
       isLoading.value = true
       appointments.value = await fetchUserBookedAppointments(user.value.id)
       isLoading.value = false

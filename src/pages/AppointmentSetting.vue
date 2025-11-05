@@ -48,7 +48,7 @@ export default {
   padding-top: 1rem;
 }
 .content {
-  padding-top: 4rem;
+  padding-top: 1rem;
   width: 45%;
 }
 </style>

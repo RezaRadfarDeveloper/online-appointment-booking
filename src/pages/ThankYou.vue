@@ -1,20 +1,19 @@
 <template>
-  <div>
-    <ProgressBar />
+  <BaseLayout>
     <h2>Thank you!!!</h2>
     <router-link class="router-link" to="/" @click.native="handleNavigation"
       >Back to home</router-link
     >
-  </div>
+  </BaseLayout>
 </template>
 <script>
-import ProgressBar from '@/components/ProgressBar.vue'
 import useStepperBar from '@/hooks/useStepperBar'
+import BaseLayout from '@/ui/BaseLayout.vue'
 import { useRouter } from 'vue-router'
 
 export default {
   components: {
-    ProgressBar,
+    BaseLayout,
   },
   setup() {
     const { setStep, previousStep } = useStepperBar(4)

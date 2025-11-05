@@ -33,6 +33,7 @@ import BaseLayout from '@/ui/BaseLayout.vue'
 
 import ButtonAction from '@/ui/ButtonAction.vue'
 import MiniLoaderIcon from '@/ui/MiniLoaderIcon.vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -60,6 +61,10 @@ export default {
       nextStep()
       router.push('/thank-you')
     }
+
+    onMounted(() => {
+      console.log(selectedAppointment.value)
+    })
 
     const handleNavigation = () => {
       setStep(isLoggedIn ? 2 : 1)

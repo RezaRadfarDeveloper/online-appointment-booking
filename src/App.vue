@@ -1,8 +1,8 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
-      <keep-alive>
-        <component :is="Component" />
+      <keep-alive exclude="UserAccount">
+        <component :is="Component" :key="$route.fullPath" />
       </keep-alive>
     </transition>
   </router-view>

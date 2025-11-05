@@ -18,6 +18,7 @@ export function useAuth() {
   const login = async ({ email, password }) => {
     isLoading.value = true
     err.value = null
+    isLoggedInStorage.value = undefined
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -56,9 +57,12 @@ export function useAuth() {
       isLoading.value = false
       throw new Error(error.message)
     }
-    user.value = data.user.user_metadata.username
+    console.log(data.user)
+
+    user.value = user.value = { username: data.user.user_metadata.username, id: data.user.id }
     userStorage.value = user.value
     isLoggedInStorage.value = true
+
     isLoggedIn.value = true
     isLoading.value = false
   }

@@ -67,7 +67,7 @@ router.beforeEach((to, from, next) => {
     next({ name: 'confirmation' })
   } else if (
     from.name === 'auth' &&
-    selectedAppointment.value === undefined &&
+    (selectedAppointment.value === undefined || selectedAppointment.value === null) &&
     to.name === 'confirmation'
   ) {
     // If the user has come to auth page but not selected appointment(step 1 is left)then go back to step 1

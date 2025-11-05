@@ -36,7 +36,9 @@ export default {
       const date = useLocalStorage('date')
       const dateFormatted = useLocalStorage('appointment_formatted_date')
       const selectedAppointment = useLocalStorage('selected_appointment')
-      const isLoggedIn = useLocalStorage('is_loggedIn')
+      const isLoggedInStorage = useLocalStorage('is_loggedIn')
+      console.log(isLoggedInStorage.value)
+
       const user = useLocalStorage('user')
 
       doctorId.value = null
@@ -46,6 +48,7 @@ export default {
       dateFormatted.value = null
       selectedAppointment.value = null
       isLoggedIn.value = null
+      isLoggedInStorage.value = null
       user.value = null
 
       setDoctorId(null)

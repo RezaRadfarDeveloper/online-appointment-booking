@@ -37,8 +37,12 @@
         <span class="error" v-if="errors.password && !isPasswordValid">{{ errors.password }}</span>
       </div>
       <div class="user-box btn-action">
-        <ButtonAction :isLoading="isLoading">
+        <!-- <ButtonAction :isLoading="isLoading">
           {{ isLoading ? 'Registering...' : 'Sign up' }}
+        </ButtonAction> -->
+        <ButtonAction :isLoading="isLoading">
+          <span v-if="isLoading"><MiniLoaderIcon /></span>
+          <span v-else><p class="loading">Sign up</p></span>
         </ButtonAction>
         <ToastAlert :message="err" />
       </div>
@@ -57,11 +61,13 @@ import { ref, computed } from 'vue'
 import ToastAlert from '../ToastAlert.vue'
 import { useRouter } from 'vue-router'
 import useStepperBar from '@/hooks/useStepperBar'
+import MiniLoaderIcon from '@/ui/MiniLoaderIcon.vue'
 
 export default {
   components: {
     ButtonAction,
     ToastAlert,
+    MiniLoaderIcon,
   },
   emits: ['signedUp'],
 

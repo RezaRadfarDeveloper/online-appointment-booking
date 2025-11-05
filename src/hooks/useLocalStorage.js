@@ -16,6 +16,7 @@ export default function useLocalStorage(key) {
 
   const write = () => {
     // console.log('write uselocalstorage')
+    if (key === 'is_loggedIn') console.log(val.value, storedValue)
 
     if (storedValue === '' || val.value === null) localStorage.removeItem(key)
     else localStorage.setItem(key, JSON.stringify(val.value))

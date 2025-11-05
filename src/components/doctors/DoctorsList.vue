@@ -90,7 +90,7 @@ export default {
   flex-direction: column;
   position: relative;
   gap: 4px;
-  height: 600px; /* Example fixed height for scrollable area */
+  height: 560px; /* Example fixed height for scrollable area */
   overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;
