@@ -55,9 +55,9 @@ export default {
 }
 
 .progressbar-step-button.active .progressbar-step-indicator {
-  color: #5856d6;
-  border-color: #5856d6;
-  background-color: #5856d60d;
+  color: #ff8c00;
+  border-color: #ff8c00;
+  background-color: #ff8c000d;
 }
 
 .checked-icon {
@@ -80,12 +80,12 @@ export default {
 
 .progressbar-step-button.completed .progressbar-step-indicator {
   color: white;
-  border-color: #5856d6;
-  background-color: #5856d6;
+  border-color: #ff8c00;
+  background-color: #ff8c00;
 }
 
 .progressbar-step-button.completed ~ .progressbar-step-connector {
-  background-color: #5856d6;
+  background-color: #ff8c00;
 }
 
 .progressbar-step {
@@ -118,5 +118,13 @@ export default {
   height: 2px;
   background: gray;
   transition: background-color 1s ease-in-out;
+}
+
+.progressbar-step-button.active,
+.progressbar-step-button.completed .progressbar-step-label {
+  color: #ff8c00;
+}
+.progressbar-step-button.completed .progressbar-step-label {
+  font-weight: 600;
 }
 </style>

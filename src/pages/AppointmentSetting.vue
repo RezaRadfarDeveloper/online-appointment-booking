@@ -48,7 +48,9 @@ export default {
   padding-top: 1rem;
 }
 .content {
-  padding-top: 1rem;
+  height: max-content;
   width: 45%;
+  padding-top: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
   <Transition name="selected-appointment">
     <div v-if="selectedAppointment" class="selectedAppointment">
-      <span>Selected session: {{ selectedAppointment?.title }}</span>
+      <span>
+        <span class="session-tag">{{ selectedAppointment?.title }}</span></span
+      >
       <button @click="nextStepLocal">Next</button>
     </div>
   </Transition>
@@ -32,6 +34,8 @@ export default {
 </script>
 <style scoped>
 .selectedAppointment {
+  display: flex;
+  justify-content: space-around;
   padding: 2rem 4rem;
   text-align: left;
   height: auto;
@@ -49,5 +53,13 @@ export default {
 .selected-appointment-enter-to {
   opacity: 1;
   padding: 2rem 4rem;
+}
+.session-tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #0899a4;
+  color: #fff;
+  border-radius: 3rem;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
 }
 </style>

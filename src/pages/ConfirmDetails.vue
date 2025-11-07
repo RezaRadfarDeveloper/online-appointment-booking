@@ -3,7 +3,7 @@
     <div v-if="isLoggedIn" class="confirm-details">
       <h2>Appointment confirmation</h2>
       <section>
-        <span>Doctor details:{{ selectedDoctor.fullName }}, {{ selectedDoctor.expertise }}</span>
+        <span>Doctor details:{{ selectedDoctor?.fullName }}, {{ selectedDoctor?.expertise }}</span>
         <span
           >Appointment Info:{{ dayOfWeek }}, {{ formattedDate }},{{
             selectedAppointment?.title

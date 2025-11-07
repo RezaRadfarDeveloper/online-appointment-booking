@@ -56,6 +56,7 @@ const handleSignedUp = () => {
 .auth-tab {
   display: flex;
   flex-direction: column;
+  max-width: 100vw;
   position: absolute;
   top: 50%;
   left: 50%;
