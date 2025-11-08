@@ -1,29 +1,32 @@
 <template>
-  <div>
-    <router-link class="router-link" to="/">Back to doctors' list</router-link>
-    <div v-if="isLoading" class="loader-zone"><LoaderIcon /></div>
-    <div v-else class="booking-list">
-      <BookingItem
-        :appointment="appointment"
-        v-for="appointment in appointments"
-        :key="appointment.id"
-      />
+  <BaseLayout>
+    <div>
+      <div v-if="isLoading" class="loader-zone"><LoaderIcon /></div>
+      <div v-else class="booking-list">
+        <BookingItem
+          :appointment="appointment"
+          v-for="appointment in appointments"
+          :key="appointment.id"
+        />
+      </div>
     </div>
-  </div>
+  </BaseLayout>
 </template>
 
 <script>
 import BookingItem from '@/components/bookings/BookingItem.vue'
 import { useAuth } from '@/hooks/useAuth'
 import { useBooking } from '@/hooks/useBooking'
+import BaseLayout from '@/ui/BaseLayout.vue'
 import LoaderIcon from '@/ui/LoaderIcon.vue'
-import { onActivated, onDeactivated, onMounted, ref } from 'vue'
+import { onActivated, onDeactivated, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default {
   components: {
     BookingItem,
     LoaderIcon,
+    BaseLayout,
   },
   setup() {
     const appointments = ref(null)
@@ -58,9 +61,12 @@ export default {
 .booking-list {
   display: flex;
   flex-direction: column;
+  height: 70vh;
   align-items: center;
+  overflow-y: auto;
   gap: 2rem;
   padding: 5rem;
+  margin-top: 4rem;
 }
 .loader-zone {
   position: absolute;

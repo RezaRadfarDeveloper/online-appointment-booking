@@ -17,9 +17,6 @@
           <span v-else><p class="loading">confirm</p></span>
         </ButtonAction>
       </div>
-      <router-link class="router-link" @click.native="handleNavigation" to="/"
-        >Not sure, Back to doctors list</router-link
-      >
     </div>
   </BaseLayout>
 </template>
@@ -92,7 +89,7 @@ export default {
 .confirm-details {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 50vw;
   height: 60vh;
   padding: 1rem;
@@ -106,6 +103,10 @@ export default {
 
 h2 {
   text-align: center;
+}
+
+section {
+  margin: 0 auto;
 }
 
 span {

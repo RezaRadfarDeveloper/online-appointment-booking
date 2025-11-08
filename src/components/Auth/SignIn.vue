@@ -18,9 +18,6 @@
         <ToastAlert :message="err" />
       </div>
     </form>
-    <router-link class="router-link" @click.native="previousStep" to="/"
-      >Back to doctors' list</router-link
-    >
   </div>
 </template>
 <script>
@@ -146,6 +143,15 @@ export default {
 .router-link {
   align-self: center;
   margin-top: 1rem;
+  margin-right: auto;
+  background-color: #ff8c00;
+  color: black;
+  margin-top: auto;
+  height: 2.5rem;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .loading {

@@ -1,5 +1,8 @@
 <template>
   <nav>
+    <router-link class="router-link" @click.native="previousStep" to="/"
+      ><span>Back to doctors' list</span></router-link
+    >
     <button :disabled="isLoading" v-if="!isLoggedIn" @click="checkAuth">Login /sign up</button>
     <template v-else>
       <button :disabled="isLoading" @click="checkAccount">account</button>
@@ -11,6 +14,8 @@
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 import { useAuth } from '@/hooks/useAuth'
 import useLocalStorage from '@/hooks/useLocalStorage'
+import useStepperBar from '@/hooks/useStepperBar'
+
 import { useRouter } from 'vue-router'
 
 export default {
@@ -19,6 +24,7 @@ export default {
     const { logout, isLoggedIn, setIsLoggedIn, setUser, isLoading } = useAuth()
     const { setDoctor, setDoctorId, setWeekDay, selectDate, setFormattedDate, selectAppointment } =
       useAppointmentDetails()
+    const { previousStep } = useStepperBar(4)
 
     const checkAccount = () => {
       router.push('/account')
@@ -66,6 +72,7 @@ export default {
     return {
       checkAccount,
       checkAuth,
+      previousStep,
       isLoggedIn,
       signOut,
       isLoading,
@@ -79,7 +86,7 @@ nav {
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
-  padding: 0.75rem;
+  padding: 0.5rem 0.75rem;
 }
 
 button {

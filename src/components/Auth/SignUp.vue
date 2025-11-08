@@ -47,10 +47,6 @@
         <ToastAlert :message="err" />
       </div>
     </form>
-    <!-- <router-link class="router-link" to="/">Back to doctors' list</router-link> -->
-    <router-link class="router-link" @click.native="previousStep" to="/"
-      >Back to doctors' list</router-link
-    >
   </div>
 </template>
 
