@@ -28,23 +28,17 @@ export default {
   },
 
   setup(props) {
-    const { setDoctor, setDoctorId } = useAppointmentDetails()
+    const { setDoctor, setDoctorId, setModalOpen } = useAppointmentDetails()
 
     const selectDoctor = (id) => {
       const doctorId = useLocalStorage('doctor_id')
       const doctor = useLocalStorage('doctor')
-      // doctorId.value = id
-      // doctor.value = selectedDoctor.value
-      // console.log(props.doctor)
 
       setDoctor(props.doctor)
       setDoctorId(id)
       doctorId.value = id
       doctor.value = props.doctor
-
-      // console.log(selectedDoctor.value)
-      // console.log(doctorId.value)
-      // console.log(doctor.value)
+      setModalOpen(true)
     }
 
     return {

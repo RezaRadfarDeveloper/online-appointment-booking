@@ -10,6 +10,7 @@ const dayOfWeek = ref(null)
 const selectedDate = ref(null)
 const page = ref(1)
 const range = 4
+const modalIsOpen = ref(false)
 const loading = ref(false)
 
 export function useAppointmentDetails() {
@@ -64,6 +65,10 @@ export function useAppointmentDetails() {
     loading.value = false
   }
 
+  const setModalOpen = (flag) => {
+    modalIsOpen.value = flag
+  }
+
   return {
     localAvailableDoctors,
     formattedDate,
@@ -75,12 +80,14 @@ export function useAppointmentDetails() {
     selectAppointment,
     setFormattedDate,
     selectDate,
+    setModalOpen,
     selectedDoctor,
     selectedAppointment,
     selectedDoctorId,
     noMoreContent,
     fetchDoctors,
     bottomSentinel,
+    modalIsOpen,
     loading,
   }
 }

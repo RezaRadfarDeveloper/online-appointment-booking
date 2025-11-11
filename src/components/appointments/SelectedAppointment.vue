@@ -18,7 +18,7 @@ import { useRouter } from 'vue-router'
 export default {
   setup() {
     const router = useRouter()
-    const { selectedAppointment } = useAppointmentDetails()
+    const { selectedAppointment, setModalOpen } = useAppointmentDetails()
     const { isLoggedIn } = useAuth()
     const { nextStep, setStep } = useStepperBar(4)
 
@@ -26,6 +26,7 @@ export default {
       console.log(isLoggedIn.value)
       setStep(isLoggedIn.value ? 2 : 1)
       nextStep()
+      setModalOpen(false)
       router.push('/auth')
     }
     return { selectedAppointment, nextStepLocal }

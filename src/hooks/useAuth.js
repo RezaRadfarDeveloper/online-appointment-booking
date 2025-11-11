@@ -57,7 +57,6 @@ export function useAuth() {
       isLoading.value = false
       throw new Error(error.message)
     }
-    console.log(data.user)
 
     user.value = user.value = { username: data.user.user_metadata.username, id: data.user.id }
     userStorage.value = user.value

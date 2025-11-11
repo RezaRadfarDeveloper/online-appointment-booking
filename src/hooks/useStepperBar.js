@@ -3,7 +3,7 @@ import { ref } from 'vue'
 const currentStep = ref(1)
 const step = ref(1)
 
-export default function useStepperBar(stepsCount) {
+export default function useStepperBar(stepsCount = 4) {
   const nextStep = () => {
     currentStep.value = currentStep.value + step.value
   }
