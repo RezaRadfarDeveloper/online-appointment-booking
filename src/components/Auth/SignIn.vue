@@ -27,7 +27,7 @@ import ToastAlert from '@/components/ToastAlert.vue'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import useStepperBar from '@/hooks/useStepperBar'
+// import useStepperBar from '@/hooks/useStepperBar'
 import MiniLoaderIcon from '@/ui/MiniLoaderIcon.vue'
 
 export default {
@@ -38,7 +38,7 @@ export default {
   },
   setup() {
     const { login, err, isLoading, isLoggedIn } = useAuth()
-    const { nextStep, previousStep, setStep } = useStepperBar(4)
+    // const { nextStep, previousStep, setStep } = useStepperBar(4)
 
     const router = useRouter()
 
@@ -48,8 +48,8 @@ export default {
     const AuthLogin = async () => {
       await login({ email: email.value, password: password.value })
 
-      setStep(1)
-      nextStep()
+      // setStep(1)
+      // nextStep()
       email.value = ''
       password.value = ''
       router.push('/confirmation')
@@ -60,7 +60,7 @@ export default {
       email,
       password,
       router,
-      previousStep,
+      // previousStep,
       isLoading,
       err,
       isLoggedIn,
@@ -75,7 +75,7 @@ export default {
   width: 100%;
   min-height: 24rem;
   padding: 40px;
-  background: white;
+  background: rgb(var(--background-color-secondary));
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 0px 0px 10px 10px;
@@ -144,8 +144,8 @@ export default {
   align-self: center;
   margin-top: 1rem;
   margin-right: auto;
-  background-color: #ff8c00;
-  color: black;
+  background-color: var(--background-color-ternary);
+  color: var(--text-primary-color);
   margin-top: auto;
   height: 2.5rem;
   text-decoration: none;

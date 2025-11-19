@@ -16,13 +16,13 @@ export default {
   padding: 0.5rem 2rem;
   border-radius: 10px;
   border: none;
-  background-color: #ff8c00;
+  background-color: var(--background-color-ternary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 
 .inActive {
   cursor: not-allowed;
-  background-color: #ffb459;
+  background-color: var(--background-color-loading);
 }
 </style>

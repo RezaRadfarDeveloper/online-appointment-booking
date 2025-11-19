@@ -2,7 +2,7 @@
   <div class="container">
     <header>
       <NavBar />
-      <ProgressBar />
+      <ProgressBar v-if="route.path != '/account'" />
     </header>
     <main>
       <slot></slot>
@@ -16,6 +16,7 @@
 <script>
 import NavBar from '@/components/NavBar.vue'
 import ProgressBar from '@/components/ProgressBar.vue'
+import { useRoute } from 'vue-router'
 
 export default {
   components: {
@@ -23,7 +24,10 @@ export default {
     NavBar,
   },
   setup() {
-    return {}
+    const route = useRoute()
+    return {
+      route,
+    }
   },
 }
 </script>

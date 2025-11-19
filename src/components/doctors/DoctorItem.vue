@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="doctor__item--actions" :style="{ display: !activeAction ? 'none' : '' }">
-      <a href="">Profile</a>
+      <!-- <a href="">Profile</a> -->
       <a href="">Book</a>
     </div>
   </div>
@@ -53,8 +53,8 @@ export default {
   cursor: pointer;
   width: 25rem;
   align-self: center;
-  padding: 0.75rem 1.5rem;
-  background-color: #f9f9f9;
+  padding: 1rem 1.5rem;
+  background-color: rgba(var(--background-color-secondary));
 }
 .doctorItem__item--details-img {
   width: 80px;
@@ -79,7 +79,7 @@ img {
 }
 
 h3 {
-  color: rgb(27, 27, 27);
+  color: var(--text-primary-color);
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.5em;
@@ -88,7 +88,7 @@ h3 {
 }
 p {
   font-family: MessinaSansWeb, Arial, sans-serif;
-  color: rgb(0, 0, 0);
+  color: var(--text-secondary-color);
   font-size: 1rem;
   text-align: center;
 }
@@ -108,18 +108,18 @@ a {
   text-decoration: none;
   white-space: nowrap;
   border: 2px solid rgb(238, 238, 238);
-  color: rgb(4, 131, 140);
-  background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  background-color: rgb(4, 131, 140);
   border-radius: 24px;
   display: flex;
   font-weight: 600;
   height: 36px;
   padding: 0px 16px;
-  margin-bottom: 3px;
+  margin: 9px 0;
   width: 100%;
 }
-a:nth-child(2) {
+/* a:nth-child(2) {
   color: rgb(255, 255, 255);
   background-color: rgb(4, 131, 140);
-}
+} */
 </style>

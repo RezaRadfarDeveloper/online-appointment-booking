@@ -3,10 +3,10 @@
     <div class="progressbar-step" v-for="item in 3" :key="item">
       <button
         class="progressbar-step-button"
-        :class="{ active: currentStep == item, completed: currentStep > item }"
+        :class="{ active: activeStep == item, completed: activeStep > item }"
       >
         <span class="progressbar-step-indicator">
-          <span v-if="currentStep > item" class="checked-icon"><CheckSvg /></span>
+          <span v-if="activeStep > item" class="checked-icon"><CheckSvg /></span>
           <span v-else class="number">{{ item }}</span>
         </span>
         <span class="progressbar-step-label"> Step {{ item }}</span>
@@ -19,16 +19,23 @@
 <script>
 import useStepperBar from '@/hooks/useStepperBar'
 import CheckSvg from './icons/CheckSvg.vue'
+import { onMounted } from 'vue'
+// import { useRouter } from 'vue-router'
+// import { useRoute } from 'vue-router'
 
 export default {
   components: {
     CheckSvg,
   },
   setup() {
-    const { currentStep } = useStepperBar(1)
+    // const router = useRouter()
+    const { activeStep } = useStepperBar()
 
+    onMounted(() => {
+      console.log(activeStep, 'mounted')
+    })
     return {
-      currentStep,
+      activeStep,
     }
   },
 }
@@ -55,9 +62,9 @@ export default {
 }
 
 .progressbar-step-button.active .progressbar-step-indicator {
-  color: #ff8c00;
-  border-color: #ff8c00;
-  background-color: #ff8c000d;
+  color: var(--background-color-ternary);
+  border-color: var(--background-color-ternary);
+  background-color: var(--connector-color);
 }
 
 .checked-icon {
@@ -80,12 +87,12 @@ export default {
 
 .progressbar-step-button.completed .progressbar-step-indicator {
   color: white;
-  border-color: #ff8c00;
-  background-color: #ff8c00;
+  border-color: var(--background-color-ternary);
+  background-color: var(--background-color-ternary);
 }
 
 .progressbar-step-button.completed ~ .progressbar-step-connector {
-  background-color: #ff8c00;
+  background-color: var(--background-color-ternary);
 }
 
 .progressbar-step {
@@ -120,9 +127,12 @@ export default {
   transition: background-color 1s ease-in-out;
 }
 
+.progressbar-step-label {
+  color: #6b7785;
+}
 .progressbar-step-button.active,
 .progressbar-step-button.completed .progressbar-step-label {
-  color: #ff8c00;
+  color: var(--background-color-ternary);
 }
 .progressbar-step-button.completed .progressbar-step-label {
   font-weight: 600;

@@ -25,7 +25,7 @@
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 import { useAuth } from '@/hooks/useAuth'
 import { useBooking } from '@/hooks/useBooking'
-import useStepperBar from '@/hooks/useStepperBar'
+// import useStepperBar from '@/hooks/useStepperBar'
 import BaseLayout from '@/ui/BaseLayout.vue'
 
 import ButtonAction from '@/ui/ButtonAction.vue'
@@ -45,7 +45,7 @@ export default {
     const { selectedDoctor, selectedAppointment, formattedDate, dayOfWeek } =
       useAppointmentDetails()
     // const { isLoggedIn } = useAuth()
-    const { previousStep, nextStep, setStep } = useStepperBar(4)
+    // const { previousStep, nextStep, setStep } = useStepperBar(4)
 
     const { bookAppointment, isLoading } = useBooking()
 
@@ -54,8 +54,8 @@ export default {
     const confirmAppointment = async () => {
       console.log('confirmed appointment booking')
       await bookAppointment()
-      setStep(1)
-      nextStep()
+      // setStep(1)
+      // nextStep()
       router.push('/thank-you')
     }
 
@@ -64,15 +64,15 @@ export default {
     })
 
     const handleNavigation = () => {
-      setStep(isLoggedIn ? 2 : 1)
-      previousStep()
+      // setStep(isLoggedIn ? 2 : 1)
+      // previousStep()
     }
 
     return {
       router,
       formattedDate,
       confirmAppointment,
-      previousStep,
+      // previousStep,
       handleNavigation,
       dayOfWeek,
       user,

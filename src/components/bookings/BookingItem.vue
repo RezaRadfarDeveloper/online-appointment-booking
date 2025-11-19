@@ -31,7 +31,7 @@ export default {
   padding: 1rem 2rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
-  background-color: #f9f9f9;
+  background-color: rgb(var(--background-color-secondary));
 }
 
 .doctor-details {

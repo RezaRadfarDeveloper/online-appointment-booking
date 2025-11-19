@@ -3,6 +3,7 @@
     <router-link class="router-link" @click.native="previousStep" to="/"
       ><span>Back to doctors' list</span></router-link
     >
+    <DarkModeToggle />
     <button :disabled="isLoading" v-if="!isLoggedIn" @click="checkAuth">Login /sign up</button>
     <template v-else>
       <button :disabled="isLoading" @click="checkAccount">account</button>
@@ -17,8 +18,12 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 import useStepperBar from '@/hooks/useStepperBar'
 
 import { useRouter } from 'vue-router'
+import DarkModeToggle from './DarkModeToggle.vue'
 
 export default {
+  components: {
+    DarkModeToggle,
+  },
   setup() {
     const router = useRouter()
     const { logout, isLoggedIn, setIsLoggedIn, setUser, isLoading } = useAuth()
@@ -90,7 +95,8 @@ nav {
 }
 
 button {
-  background-color: #ff8c00;
+  background-color: var(--background-color-ternary);
+  color: var(--text-primary-color);
   padding: 0.5rem;
   width: 8rem;
   height: 2.5rem;

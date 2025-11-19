@@ -12,7 +12,7 @@
 <script>
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 import { useAuth } from '@/hooks/useAuth'
-import useStepperBar from '@/hooks/useStepperBar'
+// import useStepperBar from '@/hooks/useStepperBar'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -20,12 +20,12 @@ export default {
     const router = useRouter()
     const { selectedAppointment, setModalOpen } = useAppointmentDetails()
     const { isLoggedIn } = useAuth()
-    const { nextStep, setStep } = useStepperBar(4)
+    // const { nextStep, setStep } = useStepperBar(4)
 
     const nextStepLocal = () => {
       console.log(isLoggedIn.value)
-      setStep(isLoggedIn.value ? 2 : 1)
-      nextStep()
+      // setStep(isLoggedIn.value ? 2 : 1)
+      // nextStep()
       setModalOpen(false)
       router.push('/auth')
     }

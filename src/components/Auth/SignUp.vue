@@ -56,7 +56,7 @@ import ButtonAction from '@/ui/ButtonAction.vue'
 import { ref, computed } from 'vue'
 import ToastAlert from '../ToastAlert.vue'
 import { useRouter } from 'vue-router'
-import useStepperBar from '@/hooks/useStepperBar'
+// import useStepperBar from '@/hooks/useStepperBar'
 import MiniLoaderIcon from '@/ui/MiniLoaderIcon.vue'
 
 export default {
@@ -69,7 +69,7 @@ export default {
 
   setup() {
     const { isLoading, isLoggedIn, err, user, signUp } = useAuth()
-    const { nextStep, previousStep, setStep } = useStepperBar(4)
+    // const { nextStep, previousStep, setStep } = useStepperBar(4)
 
     const router = useRouter()
 
@@ -111,8 +111,8 @@ export default {
           password: form.password.value,
           options: { userName: form.username.value },
         })
-        setStep(1)
-        nextStep()
+        // setStep(1)
+        // nextStep()
         router.push('/confirmation')
       } else {
         console.log('Form has validation errors. Please correct them.')
@@ -127,7 +127,7 @@ export default {
       isEmailValid,
       err,
       errors,
-      previousStep,
+      // previousStep,
       submitForm,
       validateField,
       isLoggedIn,

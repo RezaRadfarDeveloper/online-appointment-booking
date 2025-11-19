@@ -76,7 +76,7 @@ const handleSignedUp = () => {
   line-height: 1.5;
   padding: 10px 15px;
   color: rgb(4, 131, 140);
-  background-color: white;
+  background-color: rgb(var(--background-color-secondary));
   border: 1px solid rgb(4, 131, 140);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;

@@ -16,8 +16,8 @@
 .loader {
   width: 48px;
   height: 48px;
-  border: 5px solid #fff;
-  border-bottom-color: #ff6600;
+  border: 5px solid rgb(var(--background-color-secondary));
+  border-bottom-color: var(--background-color-ternary);
   margin-top: 3rem;
   border-radius: 50%;
   display: inline-block;

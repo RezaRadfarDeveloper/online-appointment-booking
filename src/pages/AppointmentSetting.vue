@@ -4,12 +4,6 @@
       <div class="data-container">
         <doctors-list></doctors-list>
         <AppointmentDetailModal />
-        <!-- <div class="modal-mask" v-show="false">
-          <div class="content" ref="modalRef">
-            <doctor-details></doctor-details>
-            <selected-appointment></selected-appointment>
-          </div>
-        </div> -->
       </div>
     </div>
   </BaseLayout>
@@ -17,47 +11,32 @@
 
 <script>
 import AppointmentDetailModal from '@/components/AppointmentDetailModal.vue'
-// import SelectedAppointment from '@/components/appointments/SelectedAppointment.vue'
-// import DoctorDetails from '@/components/doctors/DoctorDetails.vue'
 import DoctorsList from '@/components/doctors/DoctorsList.vue'
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
-// import useClickOutside from '@/hooks/useClickOutside'
+
 import BaseLayout from '@/ui/BaseLayout.vue'
+import { computed } from 'vue'
 
 import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'AppointmentSetting',
   components: {
-    // DoctorDetails,
     DoctorsList,
-    // SelectedAppointment,
     BaseLayout,
     AppointmentDetailModal,
   },
   setup() {
     const { fetchDoctors, availableDoctors } = useAppointmentDetails()
+    const route = useRoute()
 
-    // const modalRef = ref(null)
-    // useClickOutside(modalRef, () => setModalOpen(false))
-    // const handleClick = (event) => {
-    //   if (modalIsOpen.value === false) return
-    //   console.log('handleclicked reached')
-    //   if (event.target == modalRef.value || event.composedPath().includes(modalRef.value)) {
-    //     console.log('clicked on modal area')
-    //     return
-    //   }
-    //   setModalOpen(false)
-    // }
+    const path = computed(() => route.path)
+    console.log(path.value)
 
     onMounted(() => {
-      // useClickOutside(modalRef, (val) => setModalOpen(val), modalIsOpen)
-      // window.addEventListener('click', (e) => handleClick(e), true)
       fetchDoctors()
     })
-    // onBeforeMount(() => {
-    //   window.removeEventListener('click', (e) => handleClick(e), true)
-    // })
 
     return {
       availableDoctors,
