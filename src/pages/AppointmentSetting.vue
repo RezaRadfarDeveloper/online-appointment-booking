@@ -53,14 +53,20 @@ export default {
 }
 .content {
   height: max-content;
-  width: 45%;
+  width: 50%;
   position: relative;
   margin: 80px auto;
   padding-top: 1rem;
-  background-color: #fff;
+  background-color: rgb(var(--background-color-secondary));
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 90%;
+  }
 }
 
 .modal-mask {

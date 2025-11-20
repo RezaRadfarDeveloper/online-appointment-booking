@@ -7,6 +7,7 @@
     :min-date="new Date()"
     :max-date="addMonths(new Date(), 1)"
     hide-offset-dates
+    :ui="{ menu: 'calendar-wrapper', input: 'calendar-input' }"
   ></VueDatePicker>
 </template>
 
@@ -76,6 +77,7 @@ export default {
   border-radius: 50px;
   border: none;
 }
+
 .dp__active_date {
   background-color: rgb(4, 131, 140);
 }
@@ -87,5 +89,19 @@ export default {
   &:hover {
     background-color: rgb(180, 66, 9);
   }
+}
+.calendar-wrapper,
+.calendar-input {
+  background-color: rgb(var(--background-color-secondary));
+}
+.dp__calendar_item {
+  color: var(--text-primary-color);
+}
+.dp__cell_disabled {
+  color: rgb(169, 169, 169);
+}
+.dp__action_cancel,
+.dp__selection_preview {
+  color: var(--text-primary-color);
 }
 </style>

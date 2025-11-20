@@ -40,7 +40,8 @@ export default {
   padding: 2rem 4rem;
   text-align: left;
   height: auto;
-  background-color: rgb(241, 244, 244);
+  background-color: rgb(var(--background-color-secondary));
+  border-top: 1px solid #d3d3d3;
 }
 .selected-appointment-enter-from {
   opacity: 0;

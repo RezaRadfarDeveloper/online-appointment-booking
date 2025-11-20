@@ -82,6 +82,9 @@ export default {
   flex: 0 0 1;
   padding: 1rem 3rem;
   text-align: center;
+  @media screen and (max-width: 576px) {
+    padding: 1rem;
+  }
 }
 
 .close-icon {

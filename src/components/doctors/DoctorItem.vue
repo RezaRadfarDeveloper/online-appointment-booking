@@ -11,7 +11,7 @@
     </div>
     <div class="doctor__item--actions" :style="{ display: !activeAction ? 'none' : '' }">
       <!-- <a href="">Profile</a> -->
-      <a href="">Book</a>
+      <a href="#">Book</a>
     </div>
   </div>
 </template>
@@ -55,6 +55,15 @@ export default {
   align-self: center;
   padding: 1rem 1.5rem;
   background-color: rgba(var(--background-color-secondary));
+  @media screen and (max-width: 576px) {
+    width: 22rem;
+  }
+  @media screen and (max-width: 450px) {
+    width: 20rem;
+  }
+  @media screen and (max-width: 400px) {
+    width: 18rem;
+  }
 }
 .doctorItem__item--details-img {
   width: 80px;
