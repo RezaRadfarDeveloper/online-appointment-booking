@@ -41,10 +41,6 @@ const router = createRouter({
       name: 'account',
       meta: { requiresAuth: true },
     },
-    {
-      path: '/onscroll',
-      component: OnScroll,
-    },
   ],
 })
 
