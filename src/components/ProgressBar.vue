@@ -59,6 +59,9 @@ export default {
   background: transparent;
   cursor: pointer;
   border: 0;
+  @media screen and (max-width: 768px) {
+    font-size: 0.9rem;
+  }
 }
 
 .progressbar-step-button.active .progressbar-step-indicator {

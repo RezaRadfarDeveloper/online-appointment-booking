@@ -25,6 +25,7 @@
 import { useAppointmentDetails } from '@/hooks/useAppointmentDetails'
 import { useAuth } from '@/hooks/useAuth'
 import { useBooking } from '@/hooks/useBooking'
+import { clearLocalStorage } from '@/sevices/storage'
 // import useStepperBar from '@/hooks/useStepperBar'
 import BaseLayout from '@/ui/BaseLayout.vue'
 
@@ -54,8 +55,7 @@ export default {
     const confirmAppointment = async () => {
       console.log('confirmed appointment booking')
       await bookAppointment()
-      // setStep(1)
-      // nextStep()
+      clearLocalStorage()
       router.push('/thank-you')
     }
 
@@ -90,7 +90,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 50vw;
+  width: 55vw;
   height: 60vh;
   padding: 1rem;
   position: absolute;
@@ -99,6 +99,13 @@ export default {
   transform: translate(-50%, -50%);
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px 10px 10px 10px;
+
+  @media screen and (max-width: 768px) {
+    width: 70vw;
+  }
+  @media screen and (max-width: 576px) {
+    width: 80vw;
+  }
 }
 
 h2 {

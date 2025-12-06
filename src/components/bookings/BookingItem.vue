@@ -32,6 +32,13 @@ export default {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   background-color: rgb(var(--background-color-secondary));
+
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
 }
 
 .doctor-details {

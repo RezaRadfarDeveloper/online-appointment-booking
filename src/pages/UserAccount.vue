@@ -15,8 +15,8 @@
 
 <script>
 import BookingItem from '@/components/bookings/BookingItem.vue'
-import { useAuth } from '@/hooks/useAuth'
 import { useBooking } from '@/hooks/useBooking'
+import useLocalStorage from '@/hooks/useLocalStorage'
 import BaseLayout from '@/ui/BaseLayout.vue'
 import LoaderIcon from '@/ui/LoaderIcon.vue'
 import { onActivated, onDeactivated, ref } from 'vue'
@@ -30,20 +30,17 @@ export default {
   },
   setup() {
     const appointments = ref(null)
-    const { user } = useAuth()
+    // const { user } = useAuth()
+    const user = useLocalStorage('user')
     const router = useRouter()
     const { fetchUserBookedAppointments } = useBooking()
     const isLoading = ref(false)
-    // onMounted(async () => {
-    //   isLoading.value = true
-    //   appointments.value = await fetchUserBookedAppointments(user.value.id)
-    //   isLoading.value = false
-    //   console.log(appointments.value)
-    // })
 
     onDeactivated(() => console.log('Account deactivated'))
     onActivated(async () => {
       isLoading.value = true
+      console.log(user.value.id)
+
       appointments.value = await fetchUserBookedAppointments(user.value.id)
       isLoading.value = false
       console.log(appointments.value)
@@ -67,6 +64,10 @@ export default {
   gap: 2rem;
   padding: 5rem;
   margin-top: 4rem;
+
+  @media screen and (max-width: 576px) {
+    padding: 3rem 1.5rem;
+  }
 }
 .loader-zone {
   position: absolute;

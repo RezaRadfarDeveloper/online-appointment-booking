@@ -94,7 +94,9 @@ export default {
 .calendar-input {
   background-color: rgb(var(--background-color-secondary));
 }
-.dp__calendar_item {
+.dp__calendar_item,
+.dp__calendar_header,
+.dp__input {
   color: var(--text-primary-color);
 }
 .dp__cell_disabled {

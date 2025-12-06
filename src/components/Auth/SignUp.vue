@@ -69,7 +69,6 @@ export default {
 
   setup() {
     const { isLoading, isLoggedIn, err, user, signUp } = useAuth()
-    // const { nextStep, previousStep, setStep } = useStepperBar(4)
 
     const router = useRouter()
 

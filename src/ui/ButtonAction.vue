@@ -19,6 +19,13 @@ export default {
   background-color: var(--background-color-ternary);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    width: 15rem;
+  }
+  @media screen and (max-width: 640px) {
+    width: 10rem;
+  }
 }
 
 .inActive {

@@ -93,6 +93,7 @@ export default {
   line-height: 0.7;
   left: 0;
   background-color: transparent;
+  color: var(--text-primary-color);
   border: none;
   border-radius: 50%;
   font-size: 1.5rem;

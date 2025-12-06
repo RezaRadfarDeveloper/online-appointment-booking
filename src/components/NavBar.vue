@@ -1,7 +1,7 @@
 <template>
   <nav>
     <router-link class="router-link" @click.native="previousStep" to="/"
-      ><span>Back to doctors' list</span></router-link
+      ><span>Back to list</span></router-link
     >
     <DarkModeToggle />
     <button :disabled="isLoading" v-if="!isLoggedIn" @click="checkAuth">Login /sign up</button>
@@ -92,6 +92,10 @@ nav {
   justify-content: flex-end;
   gap: 1rem;
   padding: 0.5rem 0.75rem;
+
+  @media screen and (max-width: 576px) {
+    padding: 0.5rem;
+  }
 }
 
 button {
@@ -102,8 +106,16 @@ button {
   height: 2.5rem;
   text-align: center;
   border-radius: 5px;
+  font-size: 1rem;
   border: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  @media screen and (max-width: 768px) {
+    width: 6rem;
+  }
+  @media screen and (max-width: 576px) {
+    width: 5rem;
+    font-size: 0.9rem;
+  }
 
   &:hover {
     cursor: pointer;

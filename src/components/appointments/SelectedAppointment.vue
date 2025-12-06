@@ -2,9 +2,9 @@
   <Transition name="selected-appointment">
     <div v-if="selectedAppointment" class="selectedAppointment">
       <span>
-        <span class="session-tag">{{ selectedAppointment?.title }}</span></span
+        <span class="btn btn-tag">{{ selectedAppointment?.title }}</span></span
       >
-      <button @click="nextStepLocal">Next</button>
+      <span class="btn btn-next" @click="nextStepLocal">Next</span>
     </div>
   </Transition>
 </template>
@@ -56,12 +56,25 @@ export default {
   opacity: 1;
   padding: 2rem 4rem;
 }
-.session-tag {
+.btn {
   display: inline-block;
+
   padding: 0.5rem 1rem;
-  background-color: #0899a4;
   color: #fff;
   border-radius: 3rem;
+  background-color: var(--background-color-ternary);
+
   box-shadow: 0 0px 2px rgba(0, 0, 0, 0.3);
+  &.btn-tag {
+    background-color: #0899a4;
+  }
+  &.btn-next {
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+.next-button {
+  width:;
 }
 </style>

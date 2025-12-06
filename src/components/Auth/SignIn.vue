@@ -73,7 +73,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 24rem;
+  min-height: 26rem;
   padding: 40px;
   background: rgb(var(--background-color-secondary));
   box-sizing: border-box;
@@ -141,17 +141,30 @@ export default {
   margin-top: 1rem;
 }
 .router-link {
-  align-self: center;
-  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  /* align-self: center; */
+  width: 8rem;
+  justify-content: center;
   margin-right: auto;
   background-color: var(--background-color-ternary);
   color: var(--text-primary-color);
-  margin-top: auto;
   height: 2.5rem;
+  font-size: 1rem;
   text-decoration: none;
   border-radius: 5px;
   padding: 0.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+  @media screen and (max-width: 768px) {
+    width: 6rem;
+    font-size: 0.9rem;
+    padding: 0.3rem;
+  }
+
+  & > span {
+    font-weight: 400;
+  }
 }
 
 .loading {

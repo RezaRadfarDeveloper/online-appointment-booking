@@ -56,9 +56,9 @@ const handleSignedUp = () => {
 .auth-tab {
   display: flex;
   flex-direction: column;
-  max-width: 100vw;
+  max-width: 85vw;
   position: absolute;
-  top: 50%;
+  top: 54%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -92,7 +92,7 @@ const handleSignedUp = () => {
 
 .form-container {
   width: 100%;
-  height: 24rem;
+  height: 26rem;
   border: 1px solid gray;
   border-radius: 0 0 10px 10px;
 }
