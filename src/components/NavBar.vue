@@ -109,9 +109,7 @@ button {
   font-size: 1rem;
   border: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  @media screen and (max-width: 768px) {
-    width: 8rem;
-  }
+
   @media screen and (max-width: 576px) {
     width: 8rem;
     font-size: 0.9rem;
