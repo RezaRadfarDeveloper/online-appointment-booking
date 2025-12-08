@@ -71,7 +71,7 @@ export default {
   border-radius: var(--element-size);
   cursor: pointer;
   display: flex;
-  font-size: calc(var(--element-size) * 0.3);
+  font-size: calc(var(--element-size) * 0.21);
   height: auto; /*calc(var(--element-size) * 0.35); */
   position: relative;
   padding: calc(var(--element-size) * 0.1);
