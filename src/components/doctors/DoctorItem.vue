@@ -2,7 +2,7 @@
   <div class="doctorItem" @click="selectDoctor(doctor.id)">
     <div class="doctorItem__item--details">
       <div class="doctorItem__item--details-img">
-        <img src="/src/assets/img/doctor-image.png" alt="" srcset="" />
+        <img :src="getImageUrl(doctor.image)" alt="" srcset="" />
       </div>
       <div class="doctorItem__item--details-info">
         <h3>DR. {{ doctor.fullName }}</h3>
@@ -41,8 +41,11 @@ export default {
       setModalOpen(true)
     }
 
+    const getImageUrl = (image) => new URL(`/src/assets/img/${image}`, import.meta.url).href
+
     return {
       selectDoctor,
+      getImageUrl,
     }
   },
 }
@@ -76,7 +79,7 @@ export default {
 .doctorItem__item--details {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 1rem;
 }
 
