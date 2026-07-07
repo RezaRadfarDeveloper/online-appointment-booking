@@ -71,7 +71,7 @@ export default {
       setIsLoggedIn(false)
       setUser(null)
 
-      router.push('/')
+      // router.push('/')
     }
 
     return {

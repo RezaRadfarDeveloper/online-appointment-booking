@@ -79,7 +79,10 @@ export function useAuth() {
     user.value = null
     isLoggedIn.value = false
     isLoading.value = false
-    router.push('/')
+    router.push({ path: '/' }).then(() => {
+      router.go(0)
+    })
+    // router.push('/')
   }
 
   const setIsLoggedIn = (flag) => {
