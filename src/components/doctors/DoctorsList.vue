@@ -9,8 +9,8 @@
         :active-action="true"
       ></doctor-item>
       <div ref="bottomSentinel" class="bottom-sentinel"></div>
-      <loader-icon v-if="loading"></loader-icon>
-      <!-- <div v-if="loading" class="loading-indicator">Loading more...</div> -->
+      <loader-icon v-if="loading" class=""></loader-icon>
+
       <div v-if="noMoreContent" class="no-more-content">No more content to load.</div>
     </div>
   </div>
@@ -107,7 +107,7 @@ h2 {
   text-align: center;
   width: 25rem;
   height: 100%;
-  padding: 10px;
+  padding: 1rem 1.5rem;
   color: #888;
 }
 </style>
