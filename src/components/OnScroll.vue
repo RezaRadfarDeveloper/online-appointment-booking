@@ -112,7 +112,7 @@ export default {
 }
 
 .no-more-content {
-  width: 25rem;
+  width: 20rem;
   text-align: center;
   padding: 10px;
   color: #888;

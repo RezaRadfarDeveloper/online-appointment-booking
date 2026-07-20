@@ -104,7 +104,7 @@ h2 {
 
 .no-more-content {
   text-align: center;
-  width: 25rem;
+  width: 20rem;
   height: 100%;
   padding: 1rem 1.5rem;
   color: #888;

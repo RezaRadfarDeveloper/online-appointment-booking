@@ -8,8 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25rem;
-  height: max-content;
+  width: 20rem;
+  height: 100%;
   padding: 10px;
   color: #888;
 }
