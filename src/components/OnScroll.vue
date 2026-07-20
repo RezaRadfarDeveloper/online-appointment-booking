@@ -113,8 +113,9 @@ export default {
 
 .loading-indicator,
 .no-more-content {
+  width: 25rem;
   text-align: center;
-  padding: 10px;
+  padding: 1rem 1.5rem;
   color: #888;
 }
 </style>
