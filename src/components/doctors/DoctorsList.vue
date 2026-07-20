@@ -9,7 +9,7 @@
         :active-action="true"
       ></doctor-item>
       <div ref="bottomSentinel" class="bottom-sentinel"></div>
-      <loader-icon v-if="true" class=""></loader-icon>
+      <loader-icon v-if="loading" class=""></loader-icon>
 
       <div v-if="noMoreContent" class="no-more-content">No more content to load.</div>
     </div>

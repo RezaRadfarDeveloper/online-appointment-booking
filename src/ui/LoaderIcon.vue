@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   width: 25rem;
-  height: 100%;
+  height: max-content;
   padding: 10px;
   color: #888;
 }
