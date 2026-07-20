@@ -5,7 +5,7 @@
       {{ item.id }}
     </div>
     <div ref="bottomSentinel" class="bottom-sentinel"></div>
-    <!-- <div v-if="loading" class="loading-indicator">Loading more...</div> -->
+
     <div v-if="noMoreContent" class="no-more-content">No more content to load.</div>
   </div>
 </template>
@@ -111,11 +111,10 @@ export default {
   height: 1px; /* A tiny element at the bottom to observe */
 }
 
-.loading-indicator,
 .no-more-content {
   width: 25rem;
   text-align: center;
-  padding: 1rem 1.5rem;
+  padding: 10px;
   color: #888;
 }
 </style>

@@ -10,7 +10,7 @@
   align-items: center;
   width: 25rem;
   height: 100%;
-  padding: 1rem 1.5rem;
+  padding: 10px;
   color: #888;
 }
 .loader {

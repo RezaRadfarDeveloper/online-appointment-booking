@@ -102,7 +102,6 @@ h2 {
   margin-bottom: 2rem;
 }
 
-.loading-indicator,
 .no-more-content {
   text-align: center;
   width: 25rem;
