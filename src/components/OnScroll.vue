@@ -5,7 +5,7 @@
       {{ item.id }}
     </div>
     <div ref="bottomSentinel" class="bottom-sentinel"></div>
-    <!-- <div v-if="loading" class="loading-indicator">Loading more...</div> -->
+    <div v-if="loading" class="loading-indicator">Loading more...</div>
     <div v-if="noMoreContent" class="no-more-content">No more content to load.</div>
   </div>
 </template>
